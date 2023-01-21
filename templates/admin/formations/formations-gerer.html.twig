@@ -1,0 +1,55 @@
+{%  extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Gestion Programmes' %}
+
+{% block body %}
+    <div class="right-side">
+
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+
+        <div class="row mt-4">
+            <h1>Gérer mes programmes de formations</h1>
+        </div>
+
+        {% for message in app.flashes('succes') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Intitulé de la formation</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for formation in formations|sort((a, b) => a.nomFormation <=> b.nomFormation) %}
+                    <tr>
+                        <td>{{ formation.nomFormation }}</td>
+                        <td>
+                            <a href="{{ path('admin.formation.edit', {id: formation.id}) }}" class="btn btn-secondary">Éditer</a>
+                            <a href="{{ path('admin.objectifs.index', {id: formation.id}) }}" class="btn btn-secondary">Éditer les ojectifs</a>
+                            <a href="{{ path('admin.modules.index', {id: formation.id}) }}" class="btn btn-secondary">Éditer les modules</a>
+                            <a href="{{ path('admin.prerequis.index', {id: formation.id}) }}" class="btn btn-secondary">Éditer les prérequis</a>
+                            <form method="post" action="{{ path('admin.formation.delete', {id: formation.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment Supprimer cette Formation ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ formation.id) }}">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-end">
+            <a href="{{ path('admin.formation.new') }}" class="btn btn-primary">+ Ajouter un programme</a>
+        </div>
+    </div>
+
+{% endblock %}

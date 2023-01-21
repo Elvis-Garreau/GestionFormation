@@ -1,0 +1,109 @@
+{{ form_start(form) }}
+<div class="row mt-4">
+    <h5>Choisissez le client :</h5>
+    <p style="font-style: italic; font-size: 14px;">Si votre client n'est pas encore créer, <a href="{{ path('admin.client.new') }}">cliquez ici</a> pour créer un nouveau client.</p>
+    <div class="col-md-2">{{ form_widget(form.client) }}</div>
+</div>
+<div class="row mt-2">
+    <h5 class="mt-3">Choisissez le le programme :</h5>
+    <div class="col-md-4">{{ form_widget(form.programme) }}</div>
+</div>
+<div class="row mt-2">
+    <h5 class="mt-3">Choisissez le formateur :</h5>
+    <div class="col-md-2">{{ form_widget(form.formateur) }}</div>
+</div>
+<hr style="margin-top: 30px">
+<div class="row mt-4">
+    <div class="col-md-7">
+        <h5>Dates de votre formation :</h5>
+        <p style="font-style: italic; font-size: 14px;">Si vous avez des dates avec des demi journées mettez "00" sur la demi journée non travaillée.</p>
+        <ul class="dates" style="display: inline-block; list-style: none;" data-prototype="{{ form_widget(form.dates.vars.prototype)|e('html_attr') }}">
+        </ul>
+        <div>
+            <button type="button" class="add_item_link btn btn-primary" data-collection-holder-class="dates">+ Ajouter une date</button>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row mt-4">
+    <h5>Prix de la formation :</h5>
+    <p style="font-style: italic; font-size: 14px;">Rentrez ici le cout total de la formation (HT)</p>
+    <div class="col-md-3">{{ form_widget(form.prix) }}</div>
+</div>
+<div class="row mt-4 col-md-6">
+    <h5>Lieu de la formation :</h5>
+    <div class="col-md-12">{{ form_row(form.adresse) }}</div>
+    <div class="col-md-6 mt-2">{{ form_row(form.code_postal) }}</div>
+    <div class="col-md-6 mt-2">{{ form_row(form.ville) }}</div>
+    <div class="col-md-6 mt-2">{{ form_row(form.etage) }}</div>
+    <div class="col-md-6 mt-2">{{ form_row(form.salle) }}</div>
+</div>
+<div class="row mt-4 col-md-6">
+    <h5>{{ form_label(form.modaliteOrga) }}</h5>
+    <p style="font-style: italic; font-size: 14px;">Ici vous pouvez noter, entre autre, les différentes modalités d'organisations. Les places de parking, le code pour entrer dans la batiment, la possibilité ou non de prendre les repas sur place etc.</p>
+    <div class="col-md-12">
+        {{ form_widget(form.modaliteOrga) }}
+    </div>
+</div>
+<hr style="margin-top: 30px">
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h5>Stagiaires :</h5>
+        <p style="font-style: italic; font-size: 14px;">Veuillez cliquer sur le bouton ci-dessous afin d'ajouter des stagiaires pour cette cession de formation.</p>
+        <p style="font-style: italic; font-size: 14px;">Si le/les stagiaires n'ont pas d'adresse mail, veuillez rentrer l'adresse mail de la personne chargé de cette formation chez votre client afin qu'il/elle transmette les infos aux stagiaires.</p>
+        <ul class="stagiaires" style="display: inline-block" data-prototype="{{ form_widget(form.stagiaires.vars.prototype)|e('html_attr') }}"></ul>
+        <button type="button" class="add_item_link btn btn-primary col-md-6" data-collection-holder-class="stagiaires">+ Ajouter un stagiaire</button>
+    </div>
+</div>
+<hr>
+
+<button class="btn btn-primary mt-4">{{ button | default('Appliquer') }}</button>
+{{ form_end(form) }}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        var $stagiairesCollectionHolder = $('ul.stagiaires');
+        var $datesCollectionHolder = $('ul.dates');
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $stagiairesCollectionHolder.data('index', $stagiairesCollectionHolder.find('input').length);
+        $datesCollectionHolder.data('index', $datesCollectionHolder.find('input').length);
+
+        $('body').on('click', '.add_item_link', function(e) {
+            var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+            // add a new tag form (see next code block)
+            addFormToCollection($collectionHolderClass);
+        })
+    });
+
+    function addFormToCollection($collectionHolderClass) {
+        // Get the ul that holds the collection of tags
+        var $collectionHolder = $('.' + $collectionHolderClass);
+
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data('prototype');
+
+        // get the new index
+        var index = $collectionHolder.data('index');
+
+        var newForm = prototype;
+        // You need this only if you didn't set 'label' => false in your tags field in TaskType
+        // Replace '__name__label__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        // newForm = newForm.replace(/__name__label__/g, index);
+
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        newForm = newForm.replace(/__name__/g, index);
+
+        // increase the index with one for the next item
+        $collectionHolder.data('index', index + 1);
+
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newFormLi = $('<li><hr></li>').append(newForm);
+        // Add the new form at the end of the list
+        $collectionHolder.append($newFormLi)
+    }
+</script>

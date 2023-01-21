@@ -1,0 +1,498 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    Plan d'Action
+
+{% endblock %}
+
+{% block body %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 100px">
+    </div>
+    <div style="clear: both">
+        <h1>Plan d'action pour la formation : {{ planAction.planif.programme.nomFormation }}</h1>
+    </div>
+    <div>
+        <div class="row depouillement">
+            <p>
+                Total des réponses à l'enquête à chaud : {{ TotalEnqueteChaud }} / {{ planif.stagiaires.count }}<br>
+                Total des réponses à l'enquête à Froid : {{ TotalEnqueteFroid }} / {{ planif.stagiaires.count }}<br>
+                {% if EnqueteClient %}
+                    Total des réponses à l'enquête client : 1/1
+                {% else %}
+                    Total des réponses à l'enquête client : 0/1
+                {% endif %}
+            </p>
+            <h3>Organisation :</h3>
+            <p>Pour la partie Organisation de cette formation, voici les résultats globaux suite aux enquêtes. Ces chiffres tiennent compte des réponses aux enquêtes à chaud et à froid envoyées aux stagiaires.</p>
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Pas du tout satisfait</th>
+                        <th>Insuffisamment satisfait</th>
+                        <th>En partie satisfait</th>
+                        <th>Totalement satisfait</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for reponse in Organisation %}
+
+                            {% set pourcentage = reponse / (TotalEnquete * 4) * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-4" style="margin-bottom: 0; font-weight: bold">Voici les détails question par question:</p>
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>pas du tout</th>
+                        <th>insuffisamment</th>
+                        <th>en partie</th>
+                        <th>totalement</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>La durée du stage vous a-t-elle semblé adaptée ?</td>
+                        {% for reponse in DureeStage %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Les supports de formation étaient-ils clairs et utiles ?</td>
+                        {% for reponse in SupportFormation %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Le formateur était-il clair et dynamique ?</td>
+                        {% for reponse in FormateurClair %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Le formateur a-t-il adapté la formation aux stagiaires ?</td>
+                        {% for reponse in FormateurAdapte %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12 mt-3">
+                {% if planif.planAction %}
+                    <h5>Voici les Actions que vous avez rentré pour la partie Organisation :</h5>
+                    {% autoescape false %}
+                        <p>{{ planif.planAction.organisation|replace({'\r\n': '<br>'}) }}</p>
+                    {% endautoescape %}
+                {% else %}
+                    <h5>{{ form_label(form.organisation) }}</h5>
+                    {{ form_widget(form.organisation) }}
+                {% endif %}
+            </div>
+            <hr class="mt-4">
+            <h3>Déroulement et compréhension :</h3>
+            <p>Pour la partie Déroulement et Comrpéhension de cette formation, voici les résultats globaux suite aux enquêtes. Ces chiffres tiennent compte des réponses aux enquêtes à chaud et à froid envoyées aux stagiaires.</p>
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Pas du tout satisfait</th>
+                        <th>Insuffisamment satisfait</th>
+                        <th>En partie satisfait</th>
+                        <th>Totalement satisfait</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for reponse in DeroulementComprehension %}
+
+                            {% set pourcentage = reponse / (TotalEnquete * 6) * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-4" style="margin-bottom: 0; font-weight: bold">Voici les détails question par question:</p>
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>pas du tout</th>
+                        <th>insuffisamment</th>
+                        <th>en partie</th>
+                        <th>totalement</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Le programme était-il clair et précis ?</td>
+                        {% for reponse in ProgrammeClair %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Le programme était-il adapté à vos besoins ?</td>
+                        {% for reponse in ProgrammeAdapte %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Les objectifs de la formation ont-ils été clairement annoncés ?</td>
+                        {% for reponse in ObjectifFormation %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Avez-vous compris et retenu les objectifs de la formation ?</td>
+                        {% for reponse in ComprisObjectif %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Les exercices et activités étaient-ils pertinents ?</td>
+                        {% for reponse in ExercicesPertinents %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Cette formation améliore-t-elle vos compétences ?</td>
+                        {% for reponse in CompetencesAmeliorees %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12 mt-3">
+                {% if planif.planAction %}
+                    <h5>Voici les Actions que vous avez rentré pour la partie Déroulement et Compréhension :</h5>
+                    {% autoescape false %}
+                        <p>{{ planif.planAction.comprehension|replace({'\r\n': '<br>'}) }}</p>
+                    {% endautoescape %}
+                {% else %}
+                    <h5>{{ form_label(form.comprehension) }}</h5>
+                    {{ form_widget(form.comprehension) }}
+                {% endif %}
+            </div>
+            <hr class="mt-4">
+            <h3>Autre :</h3>
+            <p>Voici les réponses pour la question : Les conditions d’accueil ont-elles été de qualité ?</p>
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Pas du tout satisfait</th>
+                        <th>Insuffisamment satisfait</th>
+                        <th>En partie satisfait</th>
+                        <th>Totalement satisfait</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for reponse in ConditionAccueil %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Voici les réponses pour la question : Avez-vous apprécié la formation dans sa globalité ?</p>
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Pas du tout satisfait</th>
+                        <th>Insuffisamment satisfait</th>
+                        <th>En partie satisfait</th>
+                        <th>Totalement satisfait</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for reponse in ApprecieGlobal %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Voici les réponses pour la question : Recommanderiez vous cette formation ?</p>
+            <div class="col-md-4">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Non</th>
+                        <th>Oui</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for reponse in Recommande %}
+
+                            {% set pourcentage = reponse / TotalEnquete * 100  %}
+
+                            <td>{{ pourcentage|round(1, 'floor') }}%</td>
+
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12 mt-3">
+                {% if planif.planAction %}
+                    <h5>Voici les Actions que vous avez rentré pour la partie Autre :</h5>
+                    {% autoescape false %}
+                        <p>{{ planif.planAction.autre|replace({'\r\n': '<br>'}) }}</p>
+                    {% endautoescape %}
+                {% else %}
+                    <h5>{{ form_label(form.autre) }}</h5>
+                    {{ form_widget(form.autre) }}
+                {% endif %}
+            </div>
+            {% if EnqueteClient %}
+                <hr class="mt-4">
+                <h3>Enquête client :</h3>
+                <p>Voici les réponses de l'enqête client :</p>
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th class="text-center">Pas du tout satisfait</th>
+                            <th class="text-center">Insuffisamment satisfait</th>
+                            <th class="text-center">En partie satisfait</th>
+                            <th class="text-center">Totalement satisfait</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>L’offre est-elle claire et disponible ?</td>
+                            <td class="text-center">
+                                {% if EnqueteClient.offreDisponible == 0 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.offreDisponible == 1 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.offreDisponible == 2 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.offreDisponible == 3 %}
+                                    X
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Les formalités d’inscription sont-elles claires et facile d’accès ?</td>
+                            <td class="text-center">
+                                {% if EnqueteClient.formalitesClair == 0 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.formalitesClair == 1 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.formalitesClair == 2 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.formalitesClair == 3 %}
+                                    X
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Les informations transmises avant la formation ont-elles étés bien communiqués ?</td>
+                            <td class="text-center">
+                                {% if EnqueteClient.infosAvantFormation == 0 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.infosAvantFormation == 1 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.infosAvantFormation == 2 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.infosAvantFormation == 3 %}
+                                    X
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Les éléments contractuels ont-ils été bien respectés ?</td>
+                            <td class="text-center">
+                                {% if EnqueteClient.elementsContractuels == 0 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.elementsContractuels == 1 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.elementsContractuels == 2 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.elementsContractuels == 3 %}
+                                    X
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>La formation a-t-elle été utile dans le développement des compétences recherchées ?</td>
+                            <td class="text-center">
+                                {% if EnqueteClient.formationUtileCompetences == 0 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.formationUtileCompetences == 1 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.formationUtileCompetences == 2 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.formationUtileCompetences == 3 %}
+                                    X
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Avez-vous apprécié la relation avec notre organisme dans sa globalité ?</td>
+                            <td class="text-center">
+                                {% if EnqueteClient.apprecieRelationOf == 0 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.apprecieRelationOf == 1 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.apprecieRelationOf == 2 %}
+                                    X
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                {% if EnqueteClient.apprecieRelationOf == 3 %}
+                                    X
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <h5>
+                        Le client recommande-t-il cette formation ?
+                    </h5>
+                    {% if EnqueteClient.recommande == 0 %}
+                        <p>NON</p>
+                    {% elseif EnqueteClient.recommande == 1 %}
+                        <p>OUI</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-12 mt-3">
+                    {% if planif.planAction %}
+                        <h5>Voici les Actions que vous avez rentré pour la partie Client :</h5>
+                        {% autoescape false %}
+                            <p>{{ planif.planAction.client|replace({'\r\n': '<br>'}) }}</p>
+                        {% endautoescape %}
+                    {% else %}
+                        <h5>{{ form_label(form.client) }}</h5>
+                        {{ form_widget(form.client) }}
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

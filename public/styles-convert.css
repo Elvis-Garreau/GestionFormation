@@ -1,0 +1,72 @@
+*{
+    font-family: sans-serif;
+}
+
+h1{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+h3{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+h5{
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+p{
+    font-size: 15px;
+}
+
+p span{
+    font-weight: bold;
+}
+
+th{
+    text-align: left;
+}
+
+table.emargement, .emargement tr, .emargement td,
+table.enquete, .enquete tr, .enquete td, .enquete th{
+    border: 1px solid black;
+}
+
+table.enquete{
+    width: 100%;
+}
+
+.enquete tbody td.retour{
+    width: 110px;
+    height: 40px;
+}
+
+.enquete tbody td.retour-r{
+    width: 146.666px;
+    height: 40px;
+}
+
+.enquete thead th{
+    text-align: center;
+    font-size: 14px;
+}
+
+.emargement tbody td{
+    min-width: 200px;
+    height: 80px;
+}
+
+.emargement thead td{
+    font-weight: bold;
+    text-align: center;
+}
+
+.cadre{
+    width: 100%;
+    height: 130px;
+    border: 1px solid black;
+}
+

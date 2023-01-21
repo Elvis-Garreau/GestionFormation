@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Remplace {{ filename }}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+
+
+        <div class="row mt-4 ofLogo">
+            <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+        </div>
+
+        <div class="planification mt-4">
+            {{ form_start(form) }}
+            <div class="row mt-4">
+                <div class="col-md-6">{{ form_row(form.attachement) }}</div>
+            </div>
+            <button class="btn btn-primary mt-4">{{ button | default('Appliquer') }}</button>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,281 @@
+{% extends 'login.html.twig' %}
+
+{% block title %}
+    FORM'Abil - Enquête à chaud
+{% endblock %}
+
+{% block body %}
+
+    <div class="enquetes">
+
+        <div class="row ofLogo">
+            <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme">
+        </div>
+        <div class="row mt-4">
+            <h1>Enquête à chaud</h1>
+        </div>
+        <div class="row mt-4">
+            <p>
+                Bonjour <span>{{ stagiaire.prenom }}</span>, vous êtes invité à remplir ce formulaire car vous venez de terminer la formation <span>{{ planif.programme.nomFormation }}</span>.
+            </p>
+            <p>
+                Dans un mois vous recevrez un nouveau lien pour répondre à cette enquête une fois que vous aurez pu mettre pratique les compétences vuent lors de cette formation.
+            </p>
+        </div>
+
+        <hr>
+
+        {{ form_start(form) }}
+
+        <h4>Organisation :</h4>
+        <div class="cadre">
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.duree_stage) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.duree_stage) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.support_formation) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.support_formation) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.formateur_clair) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.formateur_clair) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.formateur_adapte) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.formateur_adapte) }}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h4>Déroulement et compréhension :</h4>
+        <div class="cadre">
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.programme_clair) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.programme_clair) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.programme_adapte) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.programme_adapte) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.objectif_formation) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.objectif_formation) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.compris_objectif) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.compris_objectif) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.exercices_pertinents) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.exercices_pertinents) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.competences_ameliorees) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.competences_ameliorees) }}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h4>Autre :</h4>
+        <div class="cadre">
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.condition_accueil) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.condition_accueil) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.apprecie_global) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.apprecie_global) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.recommande) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.recommande) }}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="mt-4 form-group">
+            <h4>{{ form_label(form.points_forts) }}</h4>
+            <div class="cadre">
+                {{ form_widget(form.points_forts) }}
+            </div>
+        </div>
+        <hr>
+        <div class="mt-4 form-group">
+            <h4>{{ form_label(form.points_faibles) }}</h4>
+            <div class="cadre">
+                {{ form_widget(form.points_faibles) }}
+            </div>
+        </div>
+        <hr>
+        <div class="mt-4 form-group" style="margin-bottom: 40px">
+            <h4>{{ form_label(form.autres_remarques) }}</h4>
+            <div class="cadre">
+                {{ form_widget(form.autres_remarques) }}
+            </div>
+        </div>
+
+        <hr>
+
+        <h4>Ces documents vous ont-ils été remis avant ou en début de formation ?</h4>
+        <div class="row cadre">
+            <div class="col-md-6 form-group">
+                <div class="form-label">
+                    {{ form_label(form.doc_attestation_presence) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.doc_attestation_presence) }}
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div class="form-label">
+                    {{ form_label(form.doc_programme) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.doc_programme) }}
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div class="form-label">
+                    {{ form_label(form.doc_procedure_evaluation) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.doc_procedure_evaluation) }}
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div class="form-label">
+                    {{ form_label(form.doc_convocation) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.doc_convocation) }}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h4>Ces documents ont ils été mis à votre disposition pendant la durée de la formation ?</h4>
+        <div class="row cadre">
+            <div class="col-md-6 form-group">
+                <div class="form-label">
+                    {{ form_label(form.doc_bail_location) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.doc_bail_location) }}
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div class="form-label">
+                    {{ form_label(form.doc_plan) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.doc_plan) }}
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div class="form-label">
+                    {{ form_label(form.doc_organigramme_of) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.doc_organigramme_of) }}
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div class="form-label">
+                    {{ form_label(form.doc_document_unique) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.doc_document_unique) }}
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div class="form-label">
+                    {{ form_label(form.doc_veilles) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.doc_veilles) }}
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div class="form-label">
+                    {{ form_label(form.doc_reglement) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.doc_reglement) }}
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary mt-4">{{ button | default('Valider l\'enquête') }}</button>
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+

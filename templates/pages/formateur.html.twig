@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Formateur {{ formateur.formateurPrenom }} {{ formateur.formateurNom }}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Formateurs : {{ formateur.formateurPrenom }} {{ formateur.formateurNom }}</h1>
+        </div>
+
+        {% for message in app.flashes('succes') %}
+            <div class="alert alert-success mt-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="formateur mt-4">
+            <h5>Informations sur le formateur :</h5>
+            <p class="mt-4">Adresse Mail : {{ formateur.formateurMail }}</p>
+            <p>Numéro de Téléphone : {{ formateur.telephoneFormated }}</p>
+            {% if formateur.filename %}
+                <a href="{{ vich_uploader_asset(formateur, 'cvFile') }}" class="btn btn-primary" target="_blank">Télécharger le CV</a>
+            {% endif %}
+        </div>
+        <hr>
+        <div class="row">
+            <h5>Formation du formateur :</h5>
+            <p>Vous trouverez ici les différents éléments de preuve de la formation de ce formateur.</p>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Intitulé</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for preuve in formateur.preuveFormateurs %}
+                <tr>
+                    <td>{{ preuve.intitule }}</td>
+                    <td>{{ preuve.description }}</td>
+                    <td>
+                        <a href="{{ path('admin.preuve.formateur.edit', {id: preuve.id}) }}" class="btn btn-secondary">Modifier</a>
+                        <form method="post" action="{{ path('admin.preuve.formateur.delete', {id: preuve.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment Supprimer cetélément de preuve ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ preuve.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                        <a href="{{ vich_uploader_asset(preuve, 'preuveFile') }}" class="btn btn-primary" target="_blank">Télécharger</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('admin.preuve.formateur.new', {id: formateur.id}) }}" class="btn btn-primary">+ Ajouter un élément de preuve</a>
+        <hr>
+        <div class="mt-4">
+            <a href="{{ path('admin.formateur.edit', {id: formateur.id}) }}" class="btn btn-primary" target="_blank">Modifier le formateur</a>
+        </div>
+    </div>
+
+{% endblock %}

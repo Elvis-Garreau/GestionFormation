@@ -1,0 +1,113 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    Convention de formation
+
+{% endblock %}
+
+{% block body %}
+
+    {% set total_heures = 0 %}
+    {% for module in planif.programme.moduleFormations %}
+        {% set total_heures = total_heures + module.nombreHeure %}
+    {% endfor %}
+
+    {% set nombre_jours = total_heures/7 %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 100px">
+    </div>
+    <div style="float: right">
+        <h3>CONVOCATION</h3>
+        <p style="font-size: 15px">
+            Numéro de dossier : {{ refdossier }}<br>
+            {{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }} - Formateur(trice) <br>
+            Téléphone : {{ planif.formateur.formateurPhone }}<br>
+            Adresse e-Mail : {{ planif.formateur.formateurMail }}</p>
+    </div>
+    <div style="clear: both; padding-top: 30px;">
+        <div style="float: right; padding-right: 150px">
+            <P>
+                {{ planif.client.nomSociete }}<br>
+                {{ planif.client.adresseRue }}<br>
+                {{ planif.client.adresseCp }} - {{ planif.client.adresseVille }}
+            </P>
+        </div>
+        <div style="clear: both; padding-top: 20px; padding-bottom: 40px;">
+            <p>Objet : <span>Convocation</span></p>
+            <p>
+                Dossier suivi par : <span>{{ planif.organisme.cfNom }} {{ planif.organisme.cfPrenom }}</span>
+            </p>
+        </div>
+        <div>
+            <p>Mme/Mr {{ stagiaire.nom }} {{ stagiaire.prenom }}</p>
+            <p>Nous avons le palisir de vous convoquer à la formation :</p>
+        </div>
+        <hr>
+        <div>
+            <h1 style="text-align: center">{{ planif.programme.nomFormation }}</h1>
+        </div>
+        <hr>
+        <div>
+            <p>
+                Cette formation se déroulera à patir du : <span>{{ planif.dates.first.dateJour }}-{{ planif.dates.first.dateMois }}-{{ planif.dates.first.dateAnnee }} à {{ planif.dates.first.heureDebutMatin }}h{{ planif.dates.first.minuteDebutMatin }}</span>
+            </p>
+            <p>
+                Lieu de réalisation de la formation :<br>
+                <span>
+                    {{ planif.organisme.nomOf }}<br>
+                    {{ planif.adresse }}<br>
+                    {{ planif.codePostal }} - {{ planif.ville }}<br>
+                    Étage : {{ planif.etage }} - Salle : {{ planif.salle }}
+                </span>
+            </p>
+            <p>
+                Formateur : <span>{{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }}</span>
+            </p>
+        </div>
+        <div>
+            <p>Horaires de formation :</p>
+            <table class="table table-striped" style="padding: 0 10px;">
+                <thead>
+                <tr>
+                    <th>Dates</th>
+                    <th>Heures Matin</th>
+                    <th>Heures Après-midi</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for date in planif.dates %}
+                    <tr>
+                        <td>{{ date.dateJour }}-{{ date.dateMois }}-{{ date.dateAnnee }}</td>
+                        <td>{{ date.heureDebutMatin }}h{{ date.minuteDebutMatin}} - {{ date.heureFinMatin }}h{{ date.minuteFinMatin }}</td>
+                        {% if date.heureDebutAm == 00 %}
+                            <td>-</td>
+                        {% else %}
+                            <td>{{ date.heureDebutAm }}h{{ date.minuteDebutAm }} - {{ date.heureFinAm }}h{{ date.minuteFinAm }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <p>
+                Modalités d'organistation : <br>
+                {% if planif.modaliteOrga != null %}
+                    {% autoescape false %}
+                        {{ planif.modaliteOrga|replace({'\r\n': '<br>'})  }}
+                    {% endautoescape %}
+                {% else %}
+                    Aucune information complémentaire.
+                {% endif %}
+            </p>
+        </div>
+        <div>
+            <p>
+                Dans l’attente de vous recevoir, nous vous prions d’agréer, Madame, Monsieur, nos salutations distinguées.
+            </p>
+        </div>
+    </div>
+
+{% endblock %}

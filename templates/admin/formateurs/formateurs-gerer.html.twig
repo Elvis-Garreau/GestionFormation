@@ -1,0 +1,58 @@
+{%  extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Gestion Formateurs' %}
+
+{% block body %}
+    <div class="right-side">
+
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+
+        <div class="row mt-4">
+            <h1>Gérer mes Formateurs</h1>
+        </div>
+
+        {% for message in app.flashes('succes') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom du formateur</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for formateur in formateurs %}
+                    <tr>
+                        <td>{{ formateur.formateurNom }} {{ formateur.formateurPrenom }}</td>
+                        <td>
+                            <a href="{{ path('admin.formateur.edit', {id: formateur.id}) }}" class="btn btn-secondary">Éditer</a>
+                            {% if formateur.planifs.count > 0 %}
+                                <a href="#" class="btn btn-dark">Suppression Impossible</a>
+                            {% else %}
+                                <form method="post" action="{{ path('admin.formateur.delete', {id: formateur.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment Supprimer ce Formateur ?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ formateur.id) }}">
+                                    <button class="btn btn-danger">Supprimer</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-end">
+            <a href="{{ path('admin.formateur.new') }}" class="btn btn-primary">+ Ajouter une Formateur</a>
+        </div>
+
+    </div>
+
+{% endblock %}

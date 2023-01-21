@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title  %}
+
+    FORM'Abil - Création Utilisateur
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        <h1>Créer un nouvel utilisateur</h1>
+        {{ include('admin/users/user-form.html.twig', {form: form, button: 'Créer'}) }}
+    </div>
+
+{% endblock %}

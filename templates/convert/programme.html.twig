@@ -1,0 +1,76 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    Convention de formation
+
+{% endblock %}
+
+{% block body %}
+
+    {% set total_heures = 0 %}
+    {% for module in planif.programme.moduleFormations %}
+        {% set total_heures = total_heures + module.nombreHeure %}
+    {% endfor %}
+
+    {% set nombre_jours = total_heures/7 %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 80px">
+    </div>
+    <div style="float: right; padding-bottom: 30px;">
+        <h3>PROGRAMME DE FORMATION</h3>
+        <p style="font-size: 15px">
+            Numéro de dossier : {{ refdossier }}<br>
+            {{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }} - Formateur(trice) <br>
+            Téléphone : {{ planif.formateur.formateurPhone }}<br>
+            Adresse e-Mail : {{ planif.formateur.formateurMail }}</p>
+    </div>
+    <hr style="clear: both">
+    <div>
+        <h1 style="text-align: center">{{ planif.programme.nomFormation }}</h1>
+    </div>
+    <hr>
+    <div>
+        <h3>Objectifs de cette formation :</h3>
+        <p>
+            {% for objectif in planif.programme.objectifs %}
+                - {{ objectif.nomObjectif }}<br>
+            {% endfor %}
+        </p>
+    </div>
+    <hr>
+    <div>
+        <h3>Modules :</h3>
+        <p>
+            {% for module in planif.programme.moduleFormations %}
+                - {{ module.nomModule }} - {{ module.nombreHeure }}h<br>
+            {% endfor %}
+        </p>
+    </div>
+    <hr>
+    <div>
+        <h3>Pré-requis :</h3>
+        <p>
+            {% for prerequi in planif.programme.prerequis %}
+                - {{ prerequi.nomPrerequi }}<br>
+            {% endfor %}
+        </p>
+    </div>
+    <hr>
+    <div>
+        <h3>Public :</h3>
+        <p>{{ planif.programme.public }}</p>
+    </div>
+    <hr>
+    <div>
+        <h3>Programme détaillé :</h3>
+        {% for module in planif.programme.moduleFormations %}
+            <p><span>- {{ module.nomModule }} - {{ module.nombreHeure }}h</span></p>
+            {% autoescape false %}
+                <p>{{ module.description|replace({'\r\n': '<br>'}) }}</p>
+            {% endautoescape %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

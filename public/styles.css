@@ -1,0 +1,768 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Avenir, sans-serif;
+}
+
+/*      Gestion page Login       */
+
+.login-page{
+}
+
+.login-page .container{
+    left: 40%;
+    top: 25%;
+    position: absolute;
+    width: 343px;
+}
+
+.login-page img{
+    width: 320px;
+    margin-bottom: 30px;
+}
+
+/*       Gestion de la bare de Gauche       */
+
+.left-side{
+    width: 300px;
+    height: 100%;
+    background: #080F35;
+    color: white;
+    padding: 30px 20px;
+    float: left;
+    display: block;
+    position: fixed;
+}
+
+.left-side .logo-left-home .logo-left{
+    width: 250px;
+    height: auto;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.left-side-top-nomPrenom{
+    padding: 0;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.left-side-top-nomPrenom img{
+    height: 21px;
+    width: auto;
+    float: right;
+    padding-top: 5px;
+    padding-left: 8px;
+}
+
+.left-side-top-nomOf{
+    clear: both;
+    margin: -18px 0 0 0;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.left-side-top-nomOf p{
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.left-side-admin-users{
+}
+
+.left-side-admin-users a{
+    color: #FFFFFF;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+.first-level-menu{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.first-level-item, .accordion-item{
+    padding: 15px 0;
+    margin: 0;
+    border-bottom: 1px solid #EE2E70;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    max-width: 250px;
+}
+
+.accordion-button{
+    padding: 0;
+    margin: 0;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    max-width: 250px;
+}
+
+.accordion-button:not(.collapsed){
+    background: none;
+    color: #FFFFFF;
+}
+
+.accordion-button::after{
+    background: none;
+    content: "^";
+    color: #FFFFFF;
+    transform: rotate(180deg);
+}
+
+.accordion-button:not(.collapsed)::after{
+    background: none;
+    transform: rotate(0deg);
+}
+
+.first-level-item:first-child{
+    margin-top: 15px;
+}
+
+.first-level-item a{
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0;
+    margin: 0;
+}
+
+.sub-level-menu{
+    list-style: none;
+    padding: 10px 0 0 0;
+}
+
+.sub-level-item{
+    padding: 5px 0 0 15px;
+}
+
+.sub-level-item a{
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 300;
+    text-transform: uppercase;
+    max-width: 240px;
+}
+
+/*        Gestion des pages        */
+
+.right-side h1, .enquetes h1{
+    font-size: 30px;
+    font-weight: 700;
+    padding: 0 0 5px;
+    margin: 0 10px 10px 10px;
+    border-bottom: 2px solid #EE2E70;
+}
+
+.right-side h1 span{
+    text-transform: uppercase;
+}
+
+
+/*        Page Home            */
+
+.home .homeLogo{
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.home .homeLogo img{
+    margin-right: auto;
+    margin-left: auto;
+    height: 125px;
+    width: auto;
+}
+
+.home .home-title h1{
+    border-bottom: none;
+    text-align: center;
+    margin: 10px auto;
+}
+
+.home h2{
+    color: #EE2E70;
+    text-transform: uppercase;
+    font-size: 24px;
+    text-align: center;
+}
+
+.home h5{
+    color: #EE2E70;
+    font-size: 20px;
+}
+
+.home p span{
+    font-weight: bold;
+    color: #EE2E70;
+}
+
+.home .comptage{
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.home .comptage p{
+    color: #080F35;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+.home .comptage p span{
+    background: #EE2E70;
+    border-radius: 50px;
+    padding: 20px;
+    margin: 600px 0;
+    font-weight: bold;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 60px;
+}
+
+.home ul li{
+    margin-left: 30px;
+}
+
+.home ul li span{
+    font-style: italic;
+    font-weight: bold;
+}
+
+hr{
+    border: 1px solid #EE2E70;
+    opacity: 1;
+}
+
+.cadre p{
+    clear: both;
+}
+
+.cadre h6:first-child{
+    padding-top: 15px;
+}
+
+.form-inline{
+    display: inline-flex;
+}
+
+#planif_date_debut .sr-only,
+#planif_heure_debut_matin .sr-only,
+#planif_heure_fin_matin .sr-only,
+#planif_heure_debut_am .sr-only,
+#planif_heure_fin_am .sr-only{
+    display: none;
+}
+
+#planif_date_debut select{
+    margin: 0 10px;
+}
+
+#planif_date_debut select:last-child{
+    margin-left: 10px;
+    margin-right: 0;
+    width: 60px;
+}
+
+#planif_heure_debut_matin select,
+#planif_heure_fin_matin select,
+#planif_heure_debut_am select,
+#planif_heure_fin_am select{
+    margin: 0 10px;
+    width: 100px;
+}
+
+.right-side{
+    padding: 30px 30px 30px 330px;
+    background: #FFFFFF;
+    color: #080F35;
+}
+
+.btn-primary{
+    background: #EE2E70;
+    border: none;
+    border-radius: 20px;
+}
+
+.btn-card{
+    padding: 0 10px;
+    background: #EE2E70;
+    border: none;
+    border-radius: 20px;
+    color: #FFFFFF;
+    line-height: 25px;
+}
+
+.btn-card:hover{
+    color: #FFFFFF;
+}
+
+input, select{
+    border-radius: 20px !important;
+    border: 1px solid #EE2E70 !important;
+}
+
+textarea{
+    border-radius: 20px 20px 5px 20px !important;
+    border: 1px solid #EE2E70 !important;
+}
+
+.custom-file-input{
+    border-radius: 0 20px 20px 0 !important;
+}
+
+textarea.form-control{
+    min-height: 50px;
+}
+
+.organisme{
+    margin-top: 50px;
+}
+
+.ofLogo img{
+    width: auto;
+    height: 50px;
+}
+
+.card{
+    border-radius: 20px;
+    border: 1px solid #EE2E70;
+}
+
+.card-programmes{
+    min-height: 260px;
+}
+
+.card-clients{
+    min-height: 200px;
+}
+
+.card-img-top{
+    height: 70px;
+}
+
+.card-img-top img{
+    width: auto;
+    height: 50px;
+    margin-top: 10px;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+.card-title{
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+}
+
+.card-title a, a.card-title{
+    color: #080F35;
+    text-decoration: none;
+}
+
+.organisme .row{
+    border: 1px solid #EE2E70;
+    border-radius: 25px;
+    margin: 10px 0;
+    padding-top: 20px;
+}
+
+.organisme p{
+    font-size: 17px;
+    font-weight: 700;
+    padding-left: 20px;
+}
+
+.organisme p span{
+    font-style: italic;
+    font-weight: 400;
+}
+
+fieldset{
+    display: none;
+}
+
+.moduleFormations, .objectifs, .prerequis, .stagiaires, .dates, .representants, .preuveFormateurs{
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.moduleFormations li{
+}
+
+.cadre{
+    border: 1px solid #EE2E70;
+    border-radius: 20px;
+    margin: 10px 10px;
+}
+
+.dates li{
+    clear: both;
+}
+
+.dates li .form-group label{
+    float: left;
+    line-height: 36px;
+}
+
+.dates li .form-group #planif_dates_0_date_annee,
+.dates li .form-group #planif_dates_0_date_mois,
+.dates li .form-group #planif_dates_0_date_jour,
+.dates li .form-group #planif_dates_1_date_annee,
+.dates li .form-group #planif_dates_1_date_mois,
+.dates li .form-group #planif_dates_1_date_jour,
+.dates li .form-group #planif_dates_2_date_annee,
+.dates li .form-group #planif_dates_2_date_mois,
+.dates li .form-group #planif_dates_2_date_jour,
+.dates li .form-group #planif_dates_3_date_annee,
+.dates li .form-group #planif_dates_3_date_mois,
+.dates li .form-group #planif_dates_3_date_jour,
+.dates li .form-group #planif_dates_4_date_annee,
+.dates li .form-group #planif_dates_4_date_mois,
+.dates li .form-group #planif_dates_4_date_jour,
+.dates li .form-group #planif_dates_5_date_annee,
+.dates li .form-group #planif_dates_5_date_mois,
+.dates li .form-group #planif_dates_5_date_jour,
+.dates li .form-group #planif_dates_6_date_annee,
+.dates li .form-group #planif_dates_6_date_mois,
+.dates li .form-group #planif_dates_6_date_jour,
+.dates li .form-group #planif_dates_7_date_annee,
+.dates li .form-group #planif_dates_7_date_mois,
+.dates li .form-group #planif_dates_7_date_jour,
+.dates li .form-group #planif_dates_8_date_annee,
+.dates li .form-group #planif_dates_8_date_mois,
+.dates li .form-group #planif_dates_8_date_jour,
+.dates li .form-group #planif_dates_9_date_annee,
+.dates li .form-group #planif_dates_9_date_mois,
+.dates li .form-group #planif_dates_9_date_jour{
+    width: 120px;
+    margin-bottom: 10px;
+    margin-left: 80px;
+}
+
+.dates li .form-group #planif_dates_0_date_jour,
+.dates li .form-group #planif_dates_1_date_jour,
+.dates li .form-group #planif_dates_2_date_jour,
+.dates li .form-group #planif_dates_3_date_jour,
+.dates li .form-group #planif_dates_4_date_jour,
+.dates li .form-group #planif_dates_5_date_jour,
+.dates li .form-group #planif_dates_6_date_jour,
+.dates li .form-group #planif_dates_7_date_jour,
+.dates li .form-group #planif_dates_8_date_jour,
+.dates li .form-group #planif_dates_9_date_jour{
+    margin-bottom: 20px;
+}
+
+.dates li .form-group #planif_dates_0_heure_debut_matin,
+.dates li .form-group #planif_dates_1_heure_debut_matin,
+.dates li .form-group #planif_dates_2_heure_debut_matin,
+.dates li .form-group #planif_dates_3_heure_debut_matin,
+.dates li .form-group #planif_dates_4_heure_debut_matin,
+.dates li .form-group #planif_dates_5_heure_debut_matin,
+.dates li .form-group #planif_dates_6_heure_debut_matin,
+.dates li .form-group #planif_dates_7_heure_debut_matin,
+.dates li .form-group #planif_dates_8_heure_debut_matin,
+.dates li .form-group #planif_dates_9_heure_debut_matin,
+.dates li .form-group #planif_dates_0_minute_debut_matin,
+.dates li .form-group #planif_dates_1_minute_debut_matin,
+.dates li .form-group #planif_dates_2_minute_debut_matin,
+.dates li .form-group #planif_dates_3_minute_debut_matin,
+.dates li .form-group #planif_dates_4_minute_debut_matin,
+.dates li .form-group #planif_dates_5_minute_debut_matin,
+.dates li .form-group #planif_dates_6_minute_debut_matin,
+.dates li .form-group #planif_dates_7_minute_debut_matin,
+.dates li .form-group #planif_dates_8_minute_debut_matin,
+.dates li .form-group #planif_dates_9_minute_debut_matin,
+.dates li .form-group #planif_dates_0_heure_fin_matin,
+.dates li .form-group #planif_dates_1_heure_fin_matin,
+.dates li .form-group #planif_dates_2_heure_fin_matin,
+.dates li .form-group #planif_dates_3_heure_fin_matin,
+.dates li .form-group #planif_dates_4_heure_fin_matin,
+.dates li .form-group #planif_dates_5_heure_fin_matin,
+.dates li .form-group #planif_dates_6_heure_fin_matin,
+.dates li .form-group #planif_dates_7_heure_fin_matin,
+.dates li .form-group #planif_dates_8_heure_fin_matin,
+.dates li .form-group #planif_dates_9_heure_fin_matin,
+.dates li .form-group #planif_dates_0_minute_fin_matin,
+.dates li .form-group #planif_dates_1_minute_fin_matin,
+.dates li .form-group #planif_dates_2_minute_fin_matin,
+.dates li .form-group #planif_dates_3_minute_fin_matin,
+.dates li .form-group #planif_dates_4_minute_fin_matin,
+.dates li .form-group #planif_dates_5_minute_fin_matin,
+.dates li .form-group #planif_dates_6_minute_fin_matin,
+.dates li .form-group #planif_dates_7_minute_fin_matin,
+.dates li .form-group #planif_dates_8_minute_fin_matin,
+.dates li .form-group #planif_dates_9_minute_fin_matin,
+.dates li .form-group #planif_dates_0_heure_debut_am,
+.dates li .form-group #planif_dates_1_heure_debut_am,
+.dates li .form-group #planif_dates_2_heure_debut_am,
+.dates li .form-group #planif_dates_3_heure_debut_am,
+.dates li .form-group #planif_dates_4_heure_debut_am,
+.dates li .form-group #planif_dates_5_heure_debut_am,
+.dates li .form-group #planif_dates_6_heure_debut_am,
+.dates li .form-group #planif_dates_7_heure_debut_am,
+.dates li .form-group #planif_dates_8_heure_debut_am,
+.dates li .form-group #planif_dates_9_heure_debut_am,
+.dates li .form-group #planif_dates_0_minute_debut_am,
+.dates li .form-group #planif_dates_1_minute_debut_am,
+.dates li .form-group #planif_dates_2_minute_debut_am,
+.dates li .form-group #planif_dates_3_minute_debut_am,
+.dates li .form-group #planif_dates_4_minute_debut_am,
+.dates li .form-group #planif_dates_5_minute_debut_am,
+.dates li .form-group #planif_dates_6_minute_debut_am,
+.dates li .form-group #planif_dates_7_minute_debut_am,
+.dates li .form-group #planif_dates_8_minute_debut_am,
+.dates li .form-group #planif_dates_9_minute_debut_am,
+.dates li .form-group #planif_dates_0_heure_fin_am,
+.dates li .form-group #planif_dates_1_heure_fin_am,
+.dates li .form-group #planif_dates_2_heure_fin_am,
+.dates li .form-group #planif_dates_3_heure_fin_am,
+.dates li .form-group #planif_dates_4_heure_fin_am,
+.dates li .form-group #planif_dates_5_heure_fin_am,
+.dates li .form-group #planif_dates_6_heure_fin_am,
+.dates li .form-group #planif_dates_7_heure_fin_am,
+.dates li .form-group #planif_dates_8_heure_fin_am,
+.dates li .form-group #planif_dates_9_heure_fin_am,
+.dates li .form-group #planif_dates_0_minute_fin_am,
+.dates li .form-group #planif_dates_1_minute_fin_am,
+.dates li .form-group #planif_dates_2_minute_fin_am,
+.dates li .form-group #planif_dates_3_minute_fin_am,
+.dates li .form-group #planif_dates_4_minute_fin_am,
+.dates li .form-group #planif_dates_5_minute_fin_am,
+.dates li .form-group #planif_dates_6_minute_fin_am,
+.dates li .form-group #planif_dates_7_minute_fin_am,
+.dates li .form-group #planif_dates_8_minute_fin_am,
+.dates li .form-group #planif_dates_9_minute_fin_am{
+    float: left;
+    width: 70px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.dates li .form-group #planif_dates_0_minute_debut_matin,
+.dates li .form-group #planif_dates_1_minute_debut_matin,
+.dates li .form-group #planif_dates_2_minute_debut_matin,
+.dates li .form-group #planif_dates_3_minute_debut_matin,
+.dates li .form-group #planif_dates_4_minute_debut_matin,
+.dates li .form-group #planif_dates_5_minute_debut_matin,
+.dates li .form-group #planif_dates_6_minute_debut_matin,
+.dates li .form-group #planif_dates_7_minute_debut_matin,
+.dates li .form-group #planif_dates_8_minute_debut_matin,
+.dates li .form-group #planif_dates_9_minute_debut_matin,
+.dates li .form-group #planif_dates_0_minute_fin_matin,
+.dates li .form-group #planif_dates_1_minute_fin_matin,
+.dates li .form-group #planif_dates_2_minute_fin_matin,
+.dates li .form-group #planif_dates_3_minute_fin_matin,
+.dates li .form-group #planif_dates_4_minute_fin_matin,
+.dates li .form-group #planif_dates_5_minute_fin_matin,
+.dates li .form-group #planif_dates_6_minute_fin_matin,
+.dates li .form-group #planif_dates_7_minute_fin_matin,
+.dates li .form-group #planif_dates_8_minute_fin_matin,
+.dates li .form-group #planif_dates_9_minute_fin_matin,
+.dates li .form-group #planif_dates_0_minute_debut_am,
+.dates li .form-group #planif_dates_1_minute_debut_am,
+.dates li .form-group #planif_dates_2_minute_debut_am,
+.dates li .form-group #planif_dates_3_minute_debut_am,
+.dates li .form-group #planif_dates_4_minute_debut_am,
+.dates li .form-group #planif_dates_5_minute_debut_am,
+.dates li .form-group #planif_dates_6_minute_debut_am,
+.dates li .form-group #planif_dates_7_minute_debut_am,
+.dates li .form-group #planif_dates_8_minute_debut_am,
+.dates li .form-group #planif_dates_9_minute_debut_am,
+.dates li .form-group #planif_dates_0_minute_fin_am,
+.dates li .form-group #planif_dates_1_minute_fin_am,
+.dates li .form-group #planif_dates_2_minute_fin_am,
+.dates li .form-group #planif_dates_3_minute_fin_am,
+.dates li .form-group #planif_dates_4_minute_fin_am,
+.dates li .form-group #planif_dates_5_minute_fin_am,
+.dates li .form-group #planif_dates_6_minute_fin_am,
+.dates li .form-group #planif_dates_7_minute_fin_am,
+.dates li .form-group #planif_dates_8_minute_fin_am,
+.dates li .form-group #planif_dates_9_minute_fin_am{
+    margin-right: 20px;
+}
+
+.enquetes{
+    padding: 30px;
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: rgb(240,240,240);
+    box-shadow: 0 0 20px darkgrey;
+}
+
+.enquetes .ofLogo img{
+    margin-left: auto;
+    margin-right: auto;
+    height: 65px;
+    margin-bottom: 30px;
+}
+
+.enquetes h4 {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.enquetes .form-label{
+    font-weight: bold;
+    padding-right: 50px;
+}
+
+.enquetes .form-widget{
+}
+
+.enquetes hr{
+    border: none;
+    border-bottom: 1px solid #EE2E70;
+    margin: 40px 50px;
+}
+
+.enquetes textarea {
+    border-radius: 0 !important;
+    border: none !important;
+}
+
+.enquetes textarea.form-control{
+    min-height: 150px;
+}
+
+.enquetes p span {
+    font-weight: 600;
+    font-style: italic;
+}
+
+.enquetes .cadre {
+    padding: 0 20px;
+    margin-left: 0;
+    margin-bottom: 40px;
+    border: none;
+    border-radius: 0;
+    border-left: 7px solid #EE2E70;
+}
+
+.enquetes .cadre hr {
+    border: none;
+    border-bottom: 1px solid #EE2E70;
+    margin: 10px 50px;
+}
+
+.planification .row ul{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.planification .row ul li{
+    text-decoration: none;
+    display: inline-block;
+    padding: 0 15px;
+    border-right: 1px solid #EE2E70;
+}
+
+.planification .row ul li:first-child{
+    padding-left: 0;
+}
+
+.planification .row ul li:last-child{
+    padding-right: 0;
+    border-right: none;
+}
+
+.planification .row ul li a{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+    color: #080F35;
+    transition: all 0.5s ease;
+}
+
+.planification .row ul li a:hover{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+    color: #EE2E70;
+}
+
+/**       PAGINATION         **/
+
+.pagination .page-item:first-child .page-link{
+    border-top-left-radius: 1.25rem;
+    border-bottom-left-radius: 1.25rem;
+}
+
+.pagination .page-item:last-child .page-link{
+    border-top-right-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
+}
+
+.pagination .page-item.active .page-link{
+    background-color: #EE2E70;
+    border-color: #dee2e6;
+}
+
+.pagination .page-link{
+    color: #EE2E70;
+}
+
+/**         CONTACT         **/
+
+.contact-container{
+    width: 50%;
+    margin: 30px auto 0;
+}
+
+.contact-container textarea.form-control{
+    min-height: 150px;
+}
+
+/**         BIBLIOTHÈQUE DOCUMENTAIRE           **/
+
+.carre-jaune{
+    width: 20px;
+    height: 20px;
+    background: yellow;
+    margin: 7px auto 0;
+}
+
+.carre-rouge{
+    width: 20px;
+    height: 20px;
+    background: red;
+    margin: 7px auto 0;
+}
+
+.carre-bleu{
+    width: 20px;
+    height: 20px;
+    background: blue;
+    margin: 7px auto 0;
+}
+
+.carre-vert{
+    width: 20px;
+    height: 20px;
+    background: green;
+    margin: 7px auto 0;
+}
+
+.depouillement textarea.form-control{
+    min-height: 200px;
+}

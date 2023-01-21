@@ -1,0 +1,23 @@
+{% extends 'login.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Merci
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="enquetes" style="margin-top: 150px;">
+        <div class="row ofLogo">
+            <img src="{{ vich_uploader_asset(stagiaire.planif.organisme, 'imageFile') }}" alt="logo de l'organisme">
+        </div>
+        <div class="row mt-4">
+            <h1>Enquête</h1>
+        </div>
+        <div class="row mt-4">
+            <p>Merci {{ stagiaire.prenom }} pour votre participation à notre enquête !</p>
+        </div>
+    </div>
+
+{% endblock %}

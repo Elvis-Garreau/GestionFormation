@@ -1,0 +1,60 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    Convention de formation
+
+{% endblock %}
+
+{% block body %}
+
+    {% set dateforma = date.dateJour ~ date.dateMois ~ date.dateAnnee %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 100px">
+    </div>
+    <div style="float: right">
+        <h3>FEUILLE D'ÉMARGEMENT</h3>
+        <p style="font-size: 15px">
+            Numéro de dossier : {{ refdossier }}<br>
+            {{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }} - Formateur(trice) <br>
+            Téléphone : {{ planif.formateur.formateurPhone }}<br>
+            Adresse e-Mail : {{ planif.formateur.formateurMail }}</p>
+    </div>
+    <div style="clear: both; padding-top: 30px;">
+        <hr>
+        <h1>{{ planif.programme.nomFormation }}</h1>
+        <hr>
+        <div>
+            <p>Client : <span>{{ planif.client.nomSociete }}</span></p>
+            <p>Date : <span>{{ date.dateJour }}-{{ date.dateMois }}-{{ date.dateAnnee }}</span></p>
+            <p>Horraire matin: <span>{{ date.heureDebutMatin }}h{{ date.minuteDebutMatin }} - {{ date.heureFinMatin }}h{{ date.minuteFinMatin }}</span></p>
+            <p>Horraire après-midi: <span>{{ date.heureDebutAm }}h{{ date.minuteDebutAm }} - {{ date.heureFinAm }}h{{ date.minuteFinAm }}</span></p>
+            <p>Formateur : <span>{{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }}</span></p>
+        </div>
+        <hr>
+        <table class="emargement" style="border: 1px solid black">
+            <thead>
+            <tr style="border: 1px solid black">
+                <td>Nom du stagiaire</td>
+                <td>Signature Stagiaire <br> Matin</td>
+                <td>Signature Stagiaire <br> Après-midi</td>
+                <td>Signature Formateur <br> Matin</td>
+                <td>Signature Formateur <br> Après-midi</td>
+            </tr>
+            </thead>
+            <tbody>
+                {% for stagiaire in planif.stagiaires %}
+                <tr style="border: 1px solid black">
+                    <td>{{ stagiaire.nom }} {{ stagiaire.prenom }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

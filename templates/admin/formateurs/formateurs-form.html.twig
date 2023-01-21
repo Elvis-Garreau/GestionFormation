@@ -1,0 +1,72 @@
+{{ form_start(form) }}
+<div class="row mt-4">
+    <div class="col-md-2">{{ form_row(form.formateur_nom) }}</div>
+    <div class="col-md-2">{{ form_row(form.formateur_prenom) }}</div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-6">{{ form_row(form.formateur_mail) }}</div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-6">{{ form_row(form.formateur_phone) }}</div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-6 file-type-input">{{ form_row(form.cvFile) }}</div>
+</div>
+<hr>
+<div class="col-md-6">
+    <p>Pour la certification QUALIOPI il est nécéssaire d'apporter le plus de preuves possible concernant la formation des formateurs.</p>
+    <p>N'hésitez pas à ajouter de nouveaux éléments à présenter lors de l'audit pour la certification.</p>
+</div>
+<div class="row mt-4 col-md-6" style="padding-left: 10px">
+    <ul class="preuveFormateurs" style="display: inline-block" data-prototype="{{ form_widget(form.preuveFormateurs.vars.prototype)|e('html_attr') }}">
+    </ul>
+    <button type="button" class="add_item_link btn btn-primary col-md-6" data-collection-holder-class="preuveFormateurs">+ Ajouter un élément de preuve</button>
+</div>
+<button class="btn btn-primary mt-4">{{ button | default('Appliquer') }}</button>
+{{ form_end(form) }}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        var $preuvesCollectionHolder = $('ul.preuveFormateurs');
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $preuvesCollectionHolder.data('index', $preuvesCollectionHolder.find('input').length);
+
+        $('body').on('click', '.add_item_link', function(e) {
+            var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+            // add a new tag form (see next code block)
+            addFormToCollection($collectionHolderClass);
+        })
+    });
+
+    function addFormToCollection($collectionHolderClass) {
+        // Get the ul that holds the collection of tags
+        var $collectionHolder = $('.' + $collectionHolderClass);
+
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data('prototype');
+
+        // get the new index
+        var index = $collectionHolder.data('index');
+
+        var newForm = prototype;
+        // You need this only if you didn't set 'label' => false in your tags field in TaskType
+        // Replace '__name__label__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        // newForm = newForm.replace(/__name__label__/g, index);
+
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        newForm = newForm.replace(/__name__/g, index);
+
+        // increase the index with one for the next item
+        $collectionHolder.data('index', index + 1);
+
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newFormLi = $('<li><hr></li>').append(newForm);
+        // Add the new form at the end of the list
+        $collectionHolder.append($newFormLi)
+    }
+</script>

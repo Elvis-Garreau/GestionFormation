@@ -1,0 +1,91 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Questionnaire prérequis
+
+{% endblock %}
+
+{% block body %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(programme.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 65px">
+    </div>
+    <hr style="clear: both">
+    <div>
+        <h1 style="text-align: center">
+            Questionnaire de prérequis pour la formation <br>
+            {{ programme.nomFormation }}
+        </h1>
+    </div>
+    <hr>
+    <div>
+        <p>Votre entreprise nous a mandaté pour vous dispenser cette formation, afin de répondre au mieux à vos besoins et vos attentes, merci de bien vouloir remplir ce questionnaire.</p>
+    </div>
+    <hr>
+    <h5>Renseignement sur le participant</h5>
+    <div style="margin-left: 25px;">
+        <p>Nom :</p>
+        <p>Prénom :</p>
+        <p>Numéro de téléphone :</p>
+        <p>Adresse e-Mail :</p>
+        <p style="float: left">Personne en situation de handicap ?</p>
+        <p style="float: left; margin-left: 30px">OUI</p>
+        <p style="float: left; margin-left: 30px">NON</p>
+    </div>
+    <h5 style="clear: both; margin-top: 70px;">Renseignement sur le parcours du participant</h5>
+    <div style="margin-left: 25px">
+        <p>Votre fonction actuelle :</p>
+        <p>Votre ancienne fonction (laisser vide si c'est votre première fonction):</p>
+        <p style="margin-bottom: 80px">Missions et activités au sein de l'entreprise :</p>
+        <p style="margin-bottom: 80px">Expérience professionnelle :</p>
+    </div>
+    <h5>Renseignements sur les besoins du participant</h5>
+    <div style="margin-left: 25px">
+        <p style="float: left">Avez-vous déjà suivi une formation sur ce thème ou un thème similaire ?</p>
+        <p style="float: left; margin-left: 30px">OUI</p>
+        <p style="float: left; margin-left: 30px">NON</p>
+        <p style="clear: both; margin-bottom: 80px">Si oui quels étaient les grandes lignes de cette formation ?</p>
+        <p>En quelle année s’est déroulée cette formation ?</p>
+        <p>Sur une échelle de 1 à 10, quelle est votre motivation à suivre cette formation ?</p>
+        <table style="margin-left: 30px; margin-bottom: 30px">
+            <thead>
+            <tr style="">
+                <td style="width: 30px; border: 1px solid black; text-align: center">1</td>
+                <td style="width: 30px; border: 1px solid black; text-align: center">2</td>
+                <td style="width: 30px; border: 1px solid black; text-align: center">3</td>
+                <td style="width: 30px; border: 1px solid black; text-align: center">4</td>
+                <td style="width: 30px; border: 1px solid black; text-align: center">5</td>
+                <td style="width: 30px; border: 1px solid black; text-align: center">6</td>
+                <td style="width: 30px; border: 1px solid black; text-align: center">7</td>
+                <td style="width: 30px; border: 1px solid black; text-align: center">8</td>
+                <td style="width: 30px; border: 1px solid black; text-align: center">9</td>
+                <td style="width: 30px; border: 1px solid black; text-align: center">10</td>
+            </tr>
+            </thead>
+        </table>
+        <p style="float: left">Selon vous cette formation vous sera-t-elle utile dans votre métier (actuel ou prochain) ?</p>
+        <p style="float: left; margin-left: 30px">OUI</p>
+        <p style="float: left; margin-left: 30px">NON</p>
+        <p style="clear: left">Comment vous situez-vous sur le sujet de cette formation en termes de connaissances ?</p>
+        <p style="margin-left: 30px">
+            - Très peu de connaissances <br>
+            - Suffisamment de connaissances <br>
+            - Beaucoup de connaissances
+        </p>
+        <p style="float: left">Rencontrez-vous des difficultés sur ces compétences dans votre métier aujourd’hui ?</p>
+        <p style="float: left; margin-left: 30px">OUI</p>
+        <p style="float: left; margin-left: 30px">NON</p>
+        <p style="clear: left; margin-bottom: 80px">Si OUI lesuqelles :</p>
+        <p style="clear: both; margin-bottom: 80px">Selon les objectifs de la formation quels sont ceux qui vous paraissent acquis ou non ?</p>
+        <p style="clear: left">Qu’attendez-vous de cette formation ?</p>
+        <p style="margin-left: 30px">
+            - Des échanges de pratiques<br>
+            - Une mise à jour sur ce métier<br>
+            - Des conseils individualisés<br>
+            - Des rappels techniques
+        </p>
+        <p style="clear: both; margin-bottom: 100px">Souhaitez-vous nous faire parvenir d’autres informations sur vos éventuelles attentes concernant cette formation ?</p>
+    </div>
+
+{% endblock %}

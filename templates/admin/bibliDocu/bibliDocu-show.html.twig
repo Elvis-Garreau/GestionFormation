@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title  %}
+
+    FORM'Abil - Bibliothèque documentaire
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Bibliotheque documentaire</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nom du document</th>
+                        <th class="text-center">Reference</th>
+                        <th class="text-center">Couleur</th>
+                        <th class="text-center">Version</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Programme</td>
+                        <td class="text-center">FORM/04-19/2</td>
+                        <td>
+                            <div class="carre-rouge"></div>
+                        </td>
+                        <td class="text-center">1.0</td>
+                        <td class="text-center">
+                            <a href="{{ vich_uploader_asset(bibli, 'imageFile01') }}" class="btn btn-primary" target="_blank">Consulter</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fiche de Renseignement CLient</td>
+                        <td class="text-center">FORM/04-19/1</td>
+                        <td>
+                            <div class="carre-rouge"></div>
+                        </td>
+                        <td class="text-center">1.0</td>
+                        <td class="text-center">
+                            <a href="{{ vich_uploader_asset(bibli, 'imageFile02') }}" class="btn btn-primary" target="_blank">Consulter</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pré requis et buletin d'inscription</td>
+                        <td class="text-center">FORM/04-19/5</td>
+                        <td>
+                            <div class="carre-rouge"></div>
+                        </td>
+                        <td class="text-center">1.0</td>
+                        <td class="text-center">
+                            <a href="{{ vich_uploader_asset(bibli, 'imageFile03') }}" class="btn btn-primary" target="_blank">Consulter</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Convention</td>
+                        <td class="text-center">FORM/04-19/3</td>
+                        <td>
+                            <div class="carre-bleu"></div>
+                        </td>
+                        <td class="text-center">1.0</td>
+                        <td class="text-center">
+                            <a href="{{ vich_uploader_asset(bibli, 'imageFile04') }}" class="btn btn-primary" target="_blank">Consulter</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Convocation</td>
+                        <td class="text-center">FORM/04-19/4</td>
+                        <td>
+                            <div class="carre-bleu"></div>
+                        </td>
+                        <td class="text-center">1.0</td>
+                        <td class="text-center">
+                            <a href="{{ vich_uploader_asset(bibli, 'imageFile05') }}" class="btn btn-primary" target="_blank">Consulter</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Feuilles d'émargement</td>
+                        <td class="text-center">FORM/04-19/6</td>
+                        <td>
+                            <div class="carre-bleu"></div>
+                        </td>
+                        <td class="text-center">1.0</td>
+                        <td class="text-center">
+                            <a href="{{ vich_uploader_asset(bibli, 'imageFile06') }}" class="btn btn-primary" target="_blank">Consulter</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Attestation de présence</td>
+                        <td class="text-center">FORM/04-19/10</td>
+                        <td>
+                            <div class="carre-bleu"></div>
+                        </td>
+                        <td class="text-center">1.0</td>
+                        <td class="text-center">
+                            <a href="{{ vich_uploader_asset(bibli, 'imageFile10') }}" class="btn btn-primary" target="_blank">Consulter</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enquête à chaud</td>
+                        <td class="text-center">FORM/04-19/7</td>
+                        <td>
+                            <div class="carre-vert"></div>
+                        </td>
+                        <td class="text-center">1.0</td>
+                        <td class="text-center">
+                            <a href="{{ vich_uploader_asset(bibli, 'imageFile07') }}" class="btn btn-primary" target="_blank">Consulter</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enquête client</td>
+                        <td class="text-center">FORM/04-19/8</td>
+                        <td>
+                            <div class="carre-vert"></div>
+                        </td>
+                        <td class="text-center">1.0</td>
+                        <td class="text-center">
+                            <a href="{{ vich_uploader_asset(bibli, 'imageFile08') }}" class="btn btn-primary" target="_blank">Consulter</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Enquête à froid</td>
+                        <td class="text-center">FORM/04-19/9</td>
+                        <td>
+                            <div class="carre-vert"></div>
+                        </td>
+                        <td class="text-center">1.0</td>
+                        <td class="text-center">
+                            <a href="{{ vich_uploader_asset(bibli, 'imageFile09') }}" class="btn btn-primary" target="_blank">Consulter</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

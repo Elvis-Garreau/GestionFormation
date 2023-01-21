@@ -1,0 +1,126 @@
+{{ form_start(form) }}
+    <div class="row mt-4">
+        <div class="col-md-6">{{ form_row(form.nom_of) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">{{ form_row(form.imageFile) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">{{ form_row(form.adresse_voie) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">{{ form_row(form.adresse_CP) }}</div>
+        <div class="col-md-3">{{ form_row(form.adresse_ville) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">{{ form_row(form.telephone) }}</div>
+        <div class="col-md-3">{{ form_row(form.mail) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <p>{{ form_label(form.accesHandicape) }}</p>
+            <p style="font-style: italic; font-size: 14px;">En cochant "Oui" vous vous engagez à pouvoir accueillir des personnes en situations de handicap soit dans vos locaux si ceux-ci le permettent, soit en trouvant une solution pour les accueillir (locations de salles ou autre).</p>
+            {{ form_widget(form.accesHandicape) }}
+        </div>
+    </div>
+    <hr class="col-md-6">
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <h5>Représentant(s) légaux :</h5>
+            <ul class="representants" style="display: inline-block" data-prototype="{{ form_widget(form.representant.vars.prototype)|e('html_attr') }}"></ul>
+            <button type="button" class="add_item_link btn btn-primary col-md-6" data-collection-holder-class="representants">+ Ajouter un représentant</button>
+        </div>
+    </div>
+    <hr class="col-md-6">
+    <div class="row">
+        <h5>Chargé(e) de formation :</h5>
+        <div class="row mt-2">
+            <div class="col-md-3">{{ form_row(form.cfNom) }}</div>
+            <div class="col-md-3">{{ form_row(form.cfPrenom) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-3">{{ form_row(form.cfMail) }}</div>
+            <div class="col-md-3">{{ form_row(form.cfPhone) }}</div>
+        </div>
+    </div>
+<hr class="col-md-6">
+    <div class="row">
+        <h5>Livret d'accueil :</h5>
+        <div class="col-md-6">
+            <p style="font-style: italic; font-size: 14px;">
+                Si votre organisme dispose d'un livret d'accueil à transmettre aux stagiaires vous pouvez le rajouter grace au lien ci-dessous.<br>
+                Ce livret d'accueil sera donc envoyé aux stagiaires avec la convocation et le programme une semaine avant le premier jour de la formation.
+            </p>
+            <div class="col-md-6">{{ form_widget(form.livretFile) }}</div>
+        </div>
+    </div>
+<hr class="col-md-6">
+    <div class="row mt-2">
+        <div class="col-md-3">{{ form_row(form.formeJuridique) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">{{ form_row(form.declaration_activite) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">{{ form_row(form.siret) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">{{ form_row(form.tvaFr) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">{{ form_row(form.RCS) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">{{ form_row(form.capital) }}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">{{ form_row(form.codeApe) }}</div>
+    </div>
+    <button class="btn btn-primary mt-4">{{ button | default('Appliquer') }}</button>
+{{ form_end(form) }}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        var $representantsCollectionHolder = $('ul.representants');
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $representantsCollectionHolder.data('index', $representantsCollectionHolder.find('input').length);
+
+        $('body').on('click', '.add_item_link', function(e) {
+            var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+            // add a new tag form (see next code block)
+            addFormToCollection($collectionHolderClass);
+        })
+    });
+
+    function addFormToCollection($collectionHolderClass) {
+        // Get the ul that holds the collection of tags
+        var $collectionHolder = $('.' + $collectionHolderClass);
+
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data('prototype');
+
+        // get the new index
+        var index = $collectionHolder.data('index');
+
+        var newForm = prototype;
+        // You need this only if you didn't set 'label' => false in your tags field in TaskType
+        // Replace '__name__label__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        // newForm = newForm.replace(/__name__label__/g, index);
+
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        newForm = newForm.replace(/__name__/g, index);
+
+        // increase the index with one for the next item
+        $collectionHolder.data('index', index + 1);
+
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newFormLi = $('<li><hr></li>').append(newForm);
+        // Add the new form at the end of the list
+        $collectionHolder.append($newFormLi)
+    }
+</script>

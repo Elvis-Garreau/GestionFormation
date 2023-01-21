@@ -1,0 +1,132 @@
+vich_uploader:
+    db_driver: orm
+
+    metadata:
+        file_cache:
+            dir: '%kernel.build_dir%/vich_uploader'
+
+    mappings:
+        organisme_image:
+            uri_prefix: /images/organismes
+            upload_destination: '%kernel.project_dir%/public/images/organismes'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug' }
+
+        organisme_livret:
+            uri_prefix: /images/organismes/livret
+            upload_destination: '%kernel.project_dir%/public/images/organismes/livret'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slugLivret' }
+
+        formateur_cv:
+            uri_prefix: /images/CV
+            upload_destination: '%kernel.project_dir%/public/images/CV'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug' }
+
+        formateur_preuve:
+            uri_prefix: /images/preuvesFormateur
+            upload_destination: '%kernel.project_dir%/public/images/preuvesFormateur'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug' }
+
+        organisme_veille:
+            uri_prefix: /veille
+            upload_destination: '%kernel.project_dir%/public/veille'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug' }
+
+        bibli_01:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug01' }
+
+        bibli_02:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug02' }
+
+        bibli_03:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug03' }
+
+        bibli_04:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug04' }
+
+        bibli_05:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug05' }
+
+        bibli_06:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug06' }
+
+        bibli_07:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug07' }
+
+        bibli_08:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug08' }
+
+        bibli_09:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug09' }
+
+        bibli_10:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug10' }
+
+        bibli_11:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug11' }
+
+        bibli_12:
+            uri_prefix: /bibliDocu
+            upload_destination: '%kernel.project_dir%/public/bibliDocu'
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'slug12' }
+
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'

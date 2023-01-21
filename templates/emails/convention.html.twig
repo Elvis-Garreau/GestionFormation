@@ -1,0 +1,22 @@
+<div style="background-color: rgba(255, 255, 255, 1); border: 3px solid #EE2E70; max-width: 750px; margin-right: auto; margin-left: auto; padding: 20px 30px; color: #080F35">
+    <img src="cid:logo" alt="logo" style="width: auto; height: 65px; padding-left: 35px">
+    <h1 style="font-size: 20px">Bonjour {{ contactPrenom }},</h1>
+    <p>
+        Suite à votre demande de formation <span style="font-style: italic; font-weight: bold; color: #EE2E70">{{ planif.programme.nomFormation }}</span>, j’ai le plaisir de vous adresser la convention de formation signée par nos soins. Vous trouverez en annexe de cette convention le programme détaillé.
+    </p>
+    <p>
+        Voici les liens vous permettant de télécharger la convention et le programme :
+    </p>
+    <ul>
+        <li><a href="{{ url('show.file', {id: planif.id, filename: filenameConvention}) }}" style="color: #EE2E70">La convention</a></li>
+        <li><a href="{{ url('show.file', {id: planif.id, filename: filenameProgramme}) }}" style="color: #EE2E70">Le programme</a></li>
+    </ul>
+    <p>
+        Ce document est à compléter et nous retourner par mail.
+    </p>
+    <p>
+        Je vous remercie par avance de l'intérêt que vous portez à notre formation. <br>
+        Salutations distinguées, <br>
+        Le service formation {{ organisme }}.
+    </p>
+</div>

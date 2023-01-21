@@ -1,0 +1,15 @@
+{% extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <hr style="padding: 20px 0 10px 0; margin: 0; border-bottom: 1px solid black; background-color: white; opacity: 1;">
+    <p style="text-align: center; font-size: 12px; padding-top: 5px;">
+        {{ organisme.nomOf }} – {{ organisme.adresseVoie }} – {{ organisme.adresseCP }} {{ organisme.adresseVille }} – France - Tél : {{ organisme.telephoneFormated }} – {{ organisme.mail }}<br>
+        SIRET n°{{ organisme.siretFormated }} - RCS {{ organisme.rCS }} - {{ organisme.formeJuridique }} au capital de {{ organisme.capital }} € - APE {{ organisme.codeApe }} - TVA FR {{ organisme.tvaFr }}<br>
+        Déclaration d’activité enregistrée sous le n° {{ organisme.declarationActivite }} <span style="font-size: 10px; font-style: italic; font-weight: normal">(cet enregistrement ne vaut pas agrément d’état)</span>
+    </p>
+
+{% endblock %}

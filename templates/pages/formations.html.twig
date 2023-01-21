@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Programmes' %}
+
+{% block body %}
+
+
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Les programmes de formations de {{ app.user.organisme.nomOf }}</h1>
+        </div>
+        <div class="row mt-4">
+            {{ form_start(form) }}
+            <div class="col-md-3" style="float: left; margin-right: 20px;">
+                {{ form_row(form.mot) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <hr class="mt-4">
+        <div class="row mt-4">
+            {% for formation in formations %}
+                    {% set total_heures = 0 %}
+                    {% for module in formation.moduleFormations %}
+                        {% set total_heures = total_heures + module.nombreHeure %}
+                    {% endfor %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-programmes">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ formation.nomPlusTemps }}</h5></a>
+                                <hr>
+                                <p class="card-text">Durée de la formation : {{ (total_heures / 7)|round(1, 'ceil') }} jours</p>
+                                <p class="card-text">Nombre de modules : {{ formation.moduleFormations.count }}</p>
+                                <a href="{{ path('formation.show', {id: formation.id, slug: formation.slug}) }}" class="btn btn-primary">Voir</a>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+            <div class="pagination">
+                {{ knp_pagination_render(formations) }}
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <a href="{{ path('admin.formation.new') }}" class="btn btn-primary">+ Ajouter un programme</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

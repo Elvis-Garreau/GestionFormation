@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Programme {{ formation.nomFormation }}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="formation mt-4">
+            <div class="row mt-4 titre">
+                <h1>{{ formation.nomFormation }}</h1>
+            </div>
+            <a href="{{ path('admin.formation.editNom', {id: formation.id}) }}" class="btn btn-primary">Modifier l'intitulé</a>
+
+            {% for message in app.flashes('succes') %}
+                <div class="alert alert-success mt-4">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            <div class="row mt-4">
+                {% set total_heures = 0 %}
+                {% for module in formation.moduleFormations %}
+                    {% set total_heures = total_heures + module.nombreHeure %}
+                {% endfor %}
+                <p>Durée de la formation : {{ total_heures }}h sur {{ formation.moduleFormations.count }} {% if formation.moduleFormations.count == 1 %}module{% else %}modules{% endif %}.<br>
+                    {% if (total_heures / 7) <= 1 %}
+                        Soit {{ (total_heures / 7)|round(1, 'ceil') }} journée de formation.
+                    {% else %}
+                        Soit {{ (total_heures / 7)|round(1, 'ceil') }} journées de formation.
+                    {% endif %}
+                    </p>
+            </div>
+            <hr>
+            <div class="row mt-4">
+                <h5>Programme :</h5>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-11 cadre">
+                    <h6>Objectifs :</h6>
+                        {% for objectif in formation.objectifs %}
+                            <p>- {{ objectif.nomObjectif }}</p>
+                        {% endfor %}
+                </div>
+                <div>
+                    <a href="{{ path('admin.objectifs.index', {id: formation.id}) }}" class="btn btn-primary">Modifier les ojectifs</a>
+                </div>
+                <div class="col-md-11 cadre">
+                    <h6>Prérequis :</h6>
+                    {% for prerequi in formation.prerequis %}
+                        <p>- {{ prerequi.nomPrerequi }}</p>
+                    {% endfor %}
+                </div>
+                <div>
+                    <a href="{{ path('admin.prerequis.index', {id: formation.id}) }}" class="btn btn-primary">Modifier les prérequis</a>
+                </div>
+                <div class="col-md-11 cadre">
+                    <h6>Public : </h6>
+                    <p>{{ formation.public }}</p>
+                </div><div>
+                    <a href="{{ path('admin.formation.editPublic', {id: formation.id}) }}" class="btn btn-primary">Modifier le public</a>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <h5>Programme détaillé : </h5>
+                <div class="col-md-11 cadre">
+                    {% for module in formation.moduleFormations %}
+                        <h6>- {{ module.nomModule }} - <span>{{ module.nombreHeure }} h</span></h6>
+                        {% autoescape false %}
+                        <p>{{ module.description|replace({'\r\n': '<br>'}) }}</p>
+                        {% endautoescape %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <a href="{{ path('admin.modules.index', {id: formation.id}) }}" class="btn btn-primary">Modifier les modules</a>
+            </div>
+
+            <hr>
+
+            <form method="post"
+                  action="{{ path('convert-programme-inscription', {id: formation.id}) }}"
+                  style="display: inline-block"
+                  onsubmit="return confirm('Vous êtes sur le point de créer les documents relatifs à ce programme. Cela peut prendre quelques minutes.')">
+                <input type="hidden" name="_method" value="CONVERT">
+                <button class="btn btn-primary">Éditer les documents</button>
+            </form>
+
+            <div class="row mt-4">
+                {% for file in files %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-1 mt-3 mb-2">
+                                    <img src="/fichier-pdf.png" alt="Fichier PDF" style="height: 40px">
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="card-body">
+                                        <h6 class="card-title">
+                                            {{ file.filenameWithoutExtension }}
+                                        </h6>
+                                        <div class="card-text mt-1">
+                                            <a href="{{ path('show.file.programme', {id: formation.id, filename: file.filenameWithoutExtension}) }}" target="_blank" class="btn btn-card">Voir</a>
+                                            <a href="{{ path('download.file.programme', {id: formation.id, filename: file.filenameWithoutExtension}) }}" class="btn btn-card">Télécharger</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="row mt-4">
+                <h5>Envoyer les documents à un client :</h5>
+                <p style="font-size: 14px; font-style: italic">Remplissez le formulaire afin d'envoyer le prograomme ainsi que le buletin d'inscription et le questionne de prérequis à votre contact.</p>
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-md-2">{{ form_row(form.nom) }}</div>
+                    <div class="col-md-2">{{ form_row(form.prenom) }}</div>
+                    <div class="col-md-2">{{ form_row(form.mailClient) }}</div>
+                    <div class="col-md-12">{{ form_label(form.nouveauClient) }}{{ form_widget(form.nouveauClient) }}</div>
+                </div>
+                <div class="form-group mt-2">
+                    <button class="btn btn-primary">Envoyer</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

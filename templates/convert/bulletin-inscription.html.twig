@@ -1,0 +1,33 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    Convention de formation
+
+{% endblock %}
+
+{% block body %}
+
+    {% set total_heures = 0 %}
+    {% for module in planif.programme.moduleFormations %}
+        {% set total_heures = total_heures + module.nombreHeure %}
+    {% endfor %}
+
+    {% set nombre_jours = total_heures/7 %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 100px">
+    </div>
+    <div style="float: right">
+        <h3>ATTESTATION DE PRÉSENCE</h3>
+        <p style="font-size: 15px">
+            <span style="font-weight: bold">À retourner impérativement et dûment complété et signé à : </span><br>
+            {{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }} - Chargé(e) des fomrations <br>
+            Téléphone : {{ planif.formateur.formateurPhone }}<br>
+            Adresse e-Mail : {{ planif.formateur.formateurMail }}</p>
+    </div>
+    <div style="clear: both; padding-top: 30px;">
+
+    </div>
+
+{% endblock %}

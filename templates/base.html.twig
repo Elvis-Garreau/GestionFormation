@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <link href="../styles.css" rel="stylesheet">
+        <link rel="icon" type="image/png" href="/favicon-abil.png">
+        {% block stylesheets %}
+        {% endblock %}
+    </head>
+    <body>
+    <div class="left-side">
+        <div class="logo-left-home">
+            <a href="{{ path('home') }}"><img class="logo-left" src="/logo-formabil.png" alt="logo FORM Abil"></a>
+        </div>
+        <div class="row left-side-top-nomPrenom">
+            {% if app.user %}
+                <p><span style="text-transform: capitalize">{{ app.user.prenom }}</span> {{ app.user.nom }}<a href="{{ path('user.logout') }}"><img src="/deco.svg" alt="Déconnexion"></a><a href="{{ path('user.show', {id: app.user.id}) }}"><img src="/compte.svg" alt="mon compte"></a></p>
+            {% else %}
+                <a style="text-align: center; text-decoration: none; color: #FFFFFF;" href="{{ path('login') }}">Connexion</a>
+            {% endif %}
+        </div>
+        {% if app.user and app.user.roleAdmin %}
+            <div class="row left-side-top-nomOf">
+                <p>{{ app.user.organisme.nomOf }}</p>
+            </div>
+        {% endif %}
+        {% if app.user and app.user.roleAdmin %}
+            <div class="row mb-4" style="padding: 0 30px">
+                <a href="{{ path('admin.user.choose.of', {id: app.user.id}) }}" class="btn btn-primary">Choisir un organisme</a>
+            </div>
+            <div class="first-level-item">
+                <a href="{{ path('organismes.index') }}">Organismes</a>
+            </div>
+            <div class="first-level-item">
+                <a href="{{ path('admin.user.index') }}">Utilisateurs</a>
+            </div>
+        {% endif %}
+        {% if app.user %}
+            {% if app.user.roleAdmin != true %}
+                <div class="row mt-4 left-side-admin-users">
+                    <div class="col-md-12 mt-2">
+                        <a href="{{ path('organisme.show', {id: app.user.organisme.id, slug: app.user.organisme.slug }) }}">Gérer mon organisme</a>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="first-level-item">
+                <a href="{{ path('veilles.index') }}">Veilles</a>
+            </div>
+            <div class="first-level-item">
+                <a href="{{ path('formations.index') }}">Programmes</a>
+            </div>
+            <div class="first-level-item">
+                <a href="{{ path('formateurs.index') }}">Formateurs</a>
+            </div>
+            <div class="first-level-item">
+                <a href="{{ path('clients.index') }}">Clients</a>
+            </div>
+            <div class="first-level-item">
+                <a href="{{ path('planifs.index') }}">Formations</a>
+            </div>
+            <div class="first-level-item">
+                <a href="{{ path('bibli.docu.show') }}">Bibliothèque Documentaire</a>
+            </div>
+            <div class="first-level-item">
+                <a href="{{ path('contact') }}">Contact</a>
+            </div>
+        {% endif %}
+    </div>
+        {% block body %}{% endblock %}
+    {% block javascripts %}
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    </body>
+</html>

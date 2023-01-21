@@ -1,0 +1,81 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    Convention de formation
+
+{% endblock %}
+
+{% block body %}
+
+    {% set total_heures = 0 %}
+    {% for module in planif.programme.moduleFormations %}
+        {% set total_heures = total_heures + module.nombreHeure %}
+    {% endfor %}
+
+    {% set nombre_jours = total_heures/7 %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 100px">
+    </div>
+    <div style="float: right">
+        <h3>ATTESTATION DE PRÉSENCE</h3>
+        <p style="font-size: 15px">
+            Numéro de dossier : {{ refdossier }}<br>
+            {{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }} - Formateur(trice) <br>
+            Téléphone : {{ planif.formateur.formateurPhone }}<br>
+            Adresse e-Mail : {{ planif.formateur.formateurMail }}</p>
+    </div>
+    <div style="clear: both; padding-top: 30px;">
+        <div style="float: right; padding-right: 150px">
+            <P>
+                {{ planif.client.nomSociete }}<br>
+                {{ planif.client.adresseRue }}<br>
+                {{ planif.client.adresseCp }} - {{ planif.client.adresseVille }}
+            </P>
+        </div>
+        <div style="clear: both; padding-top: 20px; padding-bottom: 40px;">
+            <p>Objet : <span>Attestation de présence</span></p>
+            <p>Dossier suivi par : <span>{{ planif.organisme.cfNom }} {{ planif.organisme.cfPrenom }}</span></p>
+        </div>
+        <hr>
+        <div>
+            <h1 style="text-align: center">{{ planif.programme.nomFormation }}</h1>
+        </div>
+        <hr>
+        <div style="padding-top: 40px;">
+            <p>Madame, Monsieur,</p>
+            <p>
+                Je soussigné <span>{{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }}</span>, en qualité de formateur de la société {{ planif.organisme.nomOf }} certifie que <span>{{ stagiaire.nom }} {{ stagiaire.prenom }}</span>, {{ stagiaire.qualite }} de la société {{ planif.client.nomSociete }} a correctement suivi l'action de formation suivante :
+            </p>
+            <ul>
+                <li>Intitulé de la formation : <span>{{ planif.programme.nomFormation }}</span></li>
+                <li>
+                    Dates de la formation : <br>
+                    {% for date in planif.dates %}
+                        <span>{{ date.dateJour }}-{{ date.dateMois }}-{{ date.dateAnnee }} </span><br>
+                    {% endfor %}
+                </li>
+                <li>
+                    Lieu de réalisation de la formation :<br>
+                    <span>
+                        {{ planif.adresse }}<br>
+                        {{ planif.codePostal }} - {{ planif.ville }}<br>
+                        Étage : {{ planif.etage }} - Salle : {{ planif.salle }}
+                    </span>
+                </li>
+                <li>Durée en heures : {{ total_heures }} h (soit {{ nombre_jours|round(1, 'ceil') }} jours)</li>
+            </ul>
+        </div>
+        <div style="padding-top: 40px;">
+            <p>Fait à {{ planif.organisme.adresseVille }}, le {{ planif.dates.last.dateJour ~ '-' ~ planif.dates.last.dateMois ~ '-' ~ planif.dates.last.dateAnnee }}</p>
+        </div>
+        <div>
+            <p>Veuillez croire, Madame, Monsieur, à nos sincères salutations.</p>
+        </div>
+        <div>
+            <p>{{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }}</p>
+        </div>
+    </div>
+
+{% endblock %}

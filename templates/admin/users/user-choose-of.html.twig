@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    FORM'Abil - Choisir un OF
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        <h1>Choix de l'organisme de formation</h1>
+        {{ form_start(form) }}
+        <div class="row mt-2">
+            <div class="col-md-2">{{ form_row(form.organisme) }}</div>
+        </div>
+        <button class="btn btn-primary mt-4">{{ button | default('Appliquer') }}</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+

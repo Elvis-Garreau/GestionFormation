@@ -1,0 +1,30 @@
+<div style="background-color: rgba(255, 255, 255, 1); border: 3px solid #EE2E70; max-width: 750px; margin-right: auto; margin-left: auto; padding: 20px 30px; color: #080F35">
+    <img src="cid:logo" alt="logo" style="width: auto; height: 65px; padding-left: 35px">
+    <h1 style="font-size: 20px">Bonjour {{ formateur }},</h1>
+    <p>
+        En vue de la formation <span style="font-style: italic; font-weight: bold; color: #EE2E70">{{ planif.programme.nomFormation }}</span> vous trouverez ci-dessous la/les feuilles d’émargements à signer lors de la formation ainsi que les feuilles d'attestation de présence à signer à à donner aux stagiaires en fin de formation :
+    </p>
+    <p>
+        Liens pour les feuilles d'émargement :
+    </p>
+    <ul>
+        {% for date in planif.dates %}
+            {% set dateFormation = date.dateJour ~ '-' ~ date.dateMois ~ '-' ~ date.dateAnnee %}
+            {% set filenameEmargement = planif.dateDebut ~ planif.id ~ '-emargement-' ~ dateFormation %}
+            <li><a href="{{ url('show.file', {id: planif.id, filename: filenameEmargement}) }}" style="color: #EE2E70">Emmargement - {{ dateFormation }}</a></li>
+        {% endfor %}
+    </ul>
+    <p>
+        Liens pour les attestations de présence :
+    </p>
+    <ul>
+        {% for stagiaire in planif.stagiaires %}
+            {% set filenameAttestationPresence = planif.dateDebut ~ planif.id ~ '-' ~ stagiaire.nom ~ '-' ~ stagiaire.prenom ~ '-attestation-presence' %}
+            <li><a href="{{ url('show.file', {id: planif.id, filename: filenameAttestationPresence}) }}" style="color: #EE2E70">Attestation de présence - {{ stagiaire.nom }} - {{ stagiaire.prenom }}</a></li>
+        {% endfor %}
+    </ul>
+    <p>
+        Salutations distinguées, <br>
+        Le service formation {{ organisme }}.
+    </p>
+</div>

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Client {{ client.nomSociete }}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Page Client</h1>
+        </div>
+        <div class="client mt-4">
+            <h2>{{ client.nomSociete }}</h2>
+            <p class="mt-4">Adresse :</p>
+            <p>{{ client.adresseRue }}<br>
+            {{ client.adresseCp }} - {{ client.adresseVille }}</p>
+            <p>Représenté par : {{ client.representantNom }} {{ client.representantPrenom }}</p>
+            <p>Adresse e-Mail : {{ client.representantMail }}</p>
+            <p>Numéro de Téléphone : {{ client.telephoneFormated }}</p>
+            <p>Numéro de SIRET : {{ client.siretFormated }}</p>
+        </div>
+        <div class="mt-4">
+            <a href="{{ path('admin.client.edit', {id: client.id}) }}" class="btn btn-primary">Modifier le client</a>
+        </div>
+    </div>
+
+{% endblock %}

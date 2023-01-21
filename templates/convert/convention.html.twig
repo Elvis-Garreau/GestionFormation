@@ -1,0 +1,232 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    Convention de formation
+
+{% endblock %}
+
+{% block body %}
+
+    {% set total_heures = 0 %}
+    {% for module in planif.programme.moduleFormations %}
+        {% set total_heures = total_heures + module.nombreHeure %}
+    {% endfor %}
+
+    {% set nombre_jours = total_heures/7 %}
+
+    {% set montant_st = planif.prix/planif.stagiaires.count %}
+    {% set montant_st_jours = montant_st/nombre_jours %}
+    {% set montant_st_heure = montant_st/total_heures %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 100px">
+    </div>
+    <div style="float: right">
+        <h3>CONVENTION DE FORMATION</h3>
+        <p style="font-size: 15px">Numéro de dossier : {{ refdossier }}<br>
+            <span>À retourner impérativement et dûment signé à : </span><br>
+            {{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }} - Formateur(trice) <br>
+            Téléphone : {{ planif.formateur.formateurPhone }}<br>
+            Adresse e-Mail : {{ planif.formateur.formateurMail }}</p>
+    </div>
+    <div style="clear: both; padding-top: 30px">
+        <h1>CONVENTION DE FORMATION PROFESSIONNELLE</h1>
+        <p style="font-size: 13px">(Articles L. 6353-3 et L. 6353-7 du code du travail)</p>
+        <div class="row">
+            <p>
+                Entre,<br>
+                L'organisme de formation : <span>{{ planif.organisme.nomOf }}</span><br>
+                <span style="font-weight: normal; font-size: 13px">(Ci-après nommé l'organisme de formation)</span><br>
+                Situé : <span>{{ planif.organisme.adresseVoie }} - {{ planif.organisme.adresseCp }} {{ planif.organisme.adresseVille }}</span><br>
+                Déclaration d'activité n° <span>{{ planif.organisme.declarationActivite }}</span><br>
+                Numéro de SIRET : <span>{{ planif.organisme.siretFormated }}</span><br>
+                Représenté par :
+                {% for representant in planif.organisme.representant %}
+                    <span>- Mr/Mme {{ representant.prenom }} {{ representant.nom }}</span>
+                {% endfor %}
+            </p>
+            <p>
+                Et,<br>
+                Le bénéficiaire : <span>{{ planif.client.nomSociete }}</span><br>
+                <span style="font-weight: normal; font-size: 13px">(Ci-après nommé le bénéficiaire)</span><br>
+                Situé : <span>{{ planif.client.adresseRue }} - {{ planif.client.adresseCp }} {{ planif.client.adresseVille }}</span><br>
+                Numéro de SIRET : <span>{{ planif.client.siretFormated }}</span><br>
+                Représenté par : <span>Mr/Mme {{ planif.client.representantNom }} {{ planif.client.representantPrenom }}</span>
+            </p>
+            <p>
+                Est conclue la convention suivante en application des dispositions du livre IX du Code du travail portant sur l'organisation de la formation
+                professionnelle continue dans le cadre de l’éducation permanente.
+            </p>
+        </div>
+        <hr>
+        <div class="row">
+            <h3>1 - OBJET, NATURE ET DUREE DE LA FORMATION</h3>
+            <p>
+                Le bénéficiaire entend faire participer une partie de son personnel à l’action de formation suivante organisée par l’organisme de formation.
+            </p>
+            <p><span style="font-weight: bold">THÉMATIQUE :</span> {{ planif.programme.nomFormation }}</p>
+            <p>
+                Type d’action de formation (art. L6313-1 du code du travail): (Action d'acquisition, d'entretien ou de perfectionnement des connaissances)
+            </p>
+            <div class="row">
+                <div class="col-md-3"><p>Durée : <span>{{ total_heures }} h - soit {{ nombre_jours|round(1, 'ceil') }} jours</span></p></div>
+                <div class="col-md-3"><p>Effectif(s) formé(s) : <span>{{ planif.stagiaires.count }}</span></p></div>
+                <div class="col-md-3">
+                    <p>
+                        Lieu de la formation : <br>
+                        <span>{{ planif.adresse }} - {{ planif.codePostal }} {{ planif.ville }}<br>
+                        Étage : {{ planif.etage }} - Salle : {{ planif.salle }}</span>
+                    </p>
+                    {% if planif.organisme.accesHandicape == true %}
+                        <p>
+                            Notre organisme permet l'acces à ses formations aux personnes en situation de handicap. Si toutefois nos locaux ne permettaient pas l'accueil de personnes en situation de handicap, nous nous engageons à trouver un lieu adapté pour les accueillir dans les meilleurs conditions.
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-striped" style="padding: 0 10px;">
+                    <thead>
+                    <tr>
+                        <th>Dates</th>
+                        <th>Heures Matin</th>
+                        <th>Heures Après-midi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for date in planif.dates %}
+                        <tr>
+                            <td>{{ date.dateJour }}-{{ date.dateMois }}-{{ date.dateAnnee }}</td>
+                            <td>{{ date.heureDebutMatin }}h{{ date.minuteDebutMatin}} - {{ date.heureFinMatin }}h{{ date.minuteFinMatin }}</td>
+                            {% if date.heureDebutAm == 00 %}
+                                <td>-</td>
+                            {% else %}
+                                <td>{{ date.heureDebutAm }}h{{ date.minuteDebutAm }} - {{ date.heureFinAm }}h{{ date.minuteFinAm }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <h3>2 - PROGRAMME DE LA FORMATION ET FORMATEUR</h3>
+            <p>La description détaillée du programme de formation et du formateur est fournie en annexe.</p>
+        </div>
+        <hr>
+        <div class="row">
+            <h3>3 - ENGAGEMENT DE PARTICIPATION A L'ACTION DE FORMATION</h3>
+            <p>Le bénéficiaire s’engage à assurer la présence d’un (des) stagiaires(s) aux dates et lieux prévus ci-dessus.</p>
+            <p>Liste des stagiaires :</p>
+            <div class="row">
+                <table class="table table-striped" style="padding: 0 10px;">
+                    <thead>
+                    <tr>
+                        <th>NOM</th>
+                        <th>PRÉNOM</th>
+                        <th>FONCTION</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for stagiaire in planif.stagiaires %}
+                        <tr>
+                            <td>{{ stagiaire.nom }}</td>
+                            <td>{{ stagiaire.prenom }}</td>
+                            <td>{{ stagiaire.qualite }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <h3>4 - PRIX DE LA FORMATION</h3>
+            <p>FRAIS DE FORMATION (par heure et par stagiaire) : <span>{{ montant_st_heure|round(2, 'floor') }} € HT</span></p>
+            <p>FRAIS DE FORMATION (Par jour et par stagiaire) : <span>{{ montant_st_jours|round(2, 'floor') }} € HT</span></p>
+            <p><span>Soit un coût global de {{ planif.prix }} € HT</span></p>
+            <p>
+                La facturation s’effectuera à la fin de la formation. <br>
+                Le règlement, sera directement effectué par la société <span>{{ planif.client.nomSociete }}</span> à réception de la facture à l’ordre de <span>{{ planif.organisme.nomOf }} – {{ planif.organisme.adresseVoie }} – {{ planif.organisme.adresseCp }} {{ planif.organisme.adresseVille }}</span> qui s’engage à réaliser l’action de formation prévue dans la présente convention et à fournir les documents précités en article 7.
+            </p>
+        </div>
+        <hr>
+        <div class="row">
+            <h3>5 - MODALITES DE REGLEMENT</h3>
+            <p>
+                Le paiement sera dû en totalité à réception d'une facture émise par l'organisme de formation à destination du bénéficiaire. Le client pourra par la suite transmettre à son OCPO la facture pour remboursement. ( demande de prise en charge à faire au préalable)
+            </p>
+        </div>
+        <hr>
+        <div class="row">
+            <h3>6 - MOYENS PEDAGOGIQUES ET TECHNIQUES MIS EN ŒUVRE</h3>
+            <p>
+                Méthode pédagogique active, participative et interrogative privilégiée pour son efficacité. Le stagiaire est acteur de sa formation. Apports théoriques et exercices pratiques. Les apports sont structurés autour d’une alternance de séances découvertes et d’applications.
+            </p>
+        </div>
+        <hr>
+        <div class="row">
+            <h3>7 - SANCTION DE LA FORMATION ET DOCUMENTS LIES A L'ACTION DE FORMATION</h3>
+            <ul style="padding-left: 50px">
+                <li>
+                    Une feuille d’émargement permettra le suivi de l’exécution de l’action. Signée par chaque stagiaire, chaque jour (matin et après-midi).
+                </li>
+                <li>
+                    Une attestation d’assiduité sera remise à chaque stagiaire afin d’évaluer les acquis de la formation (évaluation formative et sommative).
+                </li>
+                <li>
+                    Modalité d’évaluation : L’objectif de la formation ne se résume pas à l’acquisition de connaissances. Il est indispensable d’évaluer l'ensemble des compétences sur 4 niveaux : reproduites, appliquée, intégrée, maîtrisée, entre la fin de la formation et l’évolution de celles-ci dans la durée. Les compétences évaluées correspondent aux objectifs de formations. Cette évaluation finale individualisée est donc réalisée par le formateur à partir de ses observations et des résultats constatés sur les différents exercices proposés (Quizz, étude de cas, mise en situation). Formalisé sur l'attestation d'assiduité remise à chaque stagiaire.
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <div class="row">
+            <h3>8 - NON REALISATION DE LA PRESTATION DE FORMATION</h3>
+            <p>
+                En application de l’article L6354-1 du Code du travail, il est convenu entre les signataires de la présente convention, que faute de résiliation totale ou partielle de la prestation de formation, l’organisme prestataire doit rembourser au cocontractant les sommes indûment perçues de ce fait.
+            </p>
+        </div>
+        <hr>
+        <div class="row">
+            {% set pourcentage = (planif.prix / 100) * 30 %}
+            <h3>9 - CAS DE DIFFEREND, DEDOMMAGEMENT OU DEDIT</h3>
+            <ul style="padding-left: 50px">
+                <li>
+                    En cas de renoncement par le bénéficiaire à l’exécution de la présente convention dans un délai d'une avant la date de démarrage de la prestation de formation, l’entreprise bénéficiaire s’engage au versement de la somme de {{ pourcentage|round(1, 'ceil') }} euros au titre de dédommagement, réparation ou dédit. Cette somme de {{ pourcentage|round(1, 'ceil') }} euros n’est pas imputable sur l’obligation de participation au titre de la formation professionnelle continue de l’entreprise bénéficiaire et ne peut faire l’objet d’une demande de remboursement ou de prise en charge par l’OPCO de la filière dont l’entreprise est adhérente.
+                </li>
+                <li>
+                    En cas de renoncement par le bénéficiaire à l’exécution de la présente convention moins d'une semaine avant la date de démarrage de la prestation de formation, l’entreprise bénéficiaire s’engage au versement de la somme de {{ planif.prix }} euros au titre de dédommagement, réparation ou dédit. Cette somme de {{ planif.prix }} euros n’est pas imputable sur l’obligation de participation au titre de la formation professionnelle continue de l’entreprise bénéficiaire et ne peut faire l’objet d’une demande de remboursement ou de prise en charge par l’OPCO de la filière dont l’entreprise est adhérente.
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <div class="row">
+            <h3>10 - LOI APPLICABLE ET ATTRIBUTION DE COMPETENCES</h3>
+            <p>
+                La présente convention de prestation de formation est soumise à la loi française. Pour toutes les contestations relatives à l’exécution ou à l’interprétation des présentes conditions, seul sera compétent le tribunal de commerce d’Angers ou son président en matière de référés, même en cas de pluralité de défendeurs.
+            </p>
+        </div>
+        <hr>
+        <div class="row">
+            <p>Document réalisé en 2 exemplaires à {{ planif.organisme.adresseVille }}, le {{ 'now'|date('d-m-Y') }}</p>
+        </div>
+        <div class="row" style="float: left">
+            <p>
+                Pour l'organisme de formation, <br>
+                {{ planif.organisme.nomOf }}<br>
+                {% for representant in planif.organisme.representant %}
+                    {{ representant.nom }} {{ representant.prenom }}
+                {% endfor %}
+            </p>
+        </div>
+        <div class="row" style="float: right; padding-right: 100px; padding-bottom: 80px;">
+            <p>
+                Pour le bénéficiaire,<br>
+                {{ planif.client.nomSociete }}<br>
+                {{ planif.client.representantNom }} {{ planif.client.representantPrenom }}
+            </p>
+        </div>
+    </div>
+
+{% endblock %}

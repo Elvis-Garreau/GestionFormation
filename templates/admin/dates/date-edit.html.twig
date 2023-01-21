@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Modifier Date' %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Mise à jour d'une date</h1>
+        </div>
+        {{ form_start(form) }}
+        <div class="row mt-4">
+            <div class="col-md-1">{{ form_row(form.date_jour) }}</div>
+            <div class="col-md-1">{{ form_row(form.date_mois) }}</div>
+            <div class="col-md-1">{{ form_row(form.date_annee) }}</div>
+        </div>
+        <div class="row mt-4 mb-4">
+            <div class="col-md-12 mb-1">{{ form_label(form.heure_debut_matin) }}</div>
+            <div class="col-md-1" style="float: left">{{ form_widget(form.heure_debut_matin) }} </div>
+            <div class="col-md-1">{{ form_widget(form.minute_debut_matin) }}</div>
+        </div>
+        <div class="row mt-4 mb-4">
+            <div class="col-md-12 mb-1">{{ form_label(form.heure_fin_matin) }}</div>
+            <div class="col-md-1" style="float: left">{{ form_widget(form.heure_fin_matin) }} </div>
+            <div class="col-md-1">{{ form_widget(form.minute_fin_matin) }}</div>
+        </div>
+        <div class="row mt-4 mb-4">
+            <div class="col-md-12 mb-1">{{ form_label(form.heure_debut_am) }}</div>
+            <div class="col-md-1" style="float: left">{{ form_widget(form.heure_debut_am) }} </div>
+            <div class="col-md-1">{{ form_widget(form.minute_debut_am) }}</div>
+        </div>
+        <div class="row mt-4 mb-4">
+            <div class="col-md-12 mb-1">{{ form_label(form.heure_fin_am) }}</div>
+            <div class="col-md-1" style="float: left">{{ form_widget(form.heure_fin_am) }} </div>
+            <div class="col-md-1">{{ form_widget(form.minute_fin_am) }}</div>
+        </div>
+        <button class="btn btn-primary mt-4">{{ button | default('Modifier la date') }}</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

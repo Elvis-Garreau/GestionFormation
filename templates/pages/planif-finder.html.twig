@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Documents de la formation {{ planif.programme.nomFormation }}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+
+
+        <div class="row mt-4 ofLogo">
+            <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme">
+        </div>
+
+        <div class="planification mt-4">
+            <div class="row mt-4 titre">
+                <h1>Documents de la formation: {{ planif.programme.nomFormation }}</h1>
+            </div>
+
+            <div class="row">
+                <ul>
+                    <li><a href="{{ path('planif.finder', {id: planif.id}) }}">Tous les documents</a></li>
+                    <li><a href="{{ path('planif.finder.convention', {id: planif.id}) }}">Convention</a></li>
+                    <li><a href="{{ path('planif.finder.programme', {id: planif.id}) }}">Programme</a></li>
+                    <li><a href="{{ path('planif.finder.emargement', {id: planif.id}) }}">Émargement</a></li>
+                    <li><a href="{{ path('planif.finder.attestation', {id: planif.id}) }}">Attestations de présence</a></li>
+                    <li><a href="{{ path('planif.finder.convocation', {id: planif.id}) }}">Convocation</a></li>
+                    <li><a href="{{ path('planif.finder.enquete', {id: planif.id}) }}">Enquêtes</a></li>
+                </ul>
+            </div>
+
+            <div class="row mt-4 finder">
+                {% for file in files %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-1 mt-3 mb-2">
+                                    <img src="/fichier-pdf.png" alt="Fichier PDF" style="height: 40px">
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="card-body">
+                                        <h6 class="card-title">
+                                            {{ file.filenameWithoutExtension }}
+                                        </h6>
+                                        <div class="card-text mt-1">
+                                            <a href="{{ path('show.file', {id: planif.id, filename: file.filenameWithoutExtension}) }}" target="_blank" class="btn btn-card">Voir</a>
+                                            <a href="{{ path('download.file', {id: planif.id, filename: file.filenameWithoutExtension}) }}" class="btn btn-card">Télécharger</a>
+                                            <a href="{{ path('replace.file', {id: planif.id, filename: file.filenameWithoutExtension}) }}" class="btn btn-card">Remplacer</a>
+                                            {% if 'attestation' in file.filenameWithoutExtension %}
+                                                <div class="carre-bleu" style="float: right"></div>
+                                            {% elseif 'convocation' in file.filenameWithoutExtension %}
+                                                <div class="carre-bleu" style="float: right"></div>
+                                            {% elseif 'convention' in file.filenameWithoutExtension %}
+                                                <div class="carre-bleu" style="float: right"></div>
+                                            {% elseif 'emargement' in file.filenameWithoutExtension %}
+                                                <div class="carre-bleu" style="float: right"></div>
+                                            {% elseif 'programme' in file.filenameWithoutExtension %}
+                                                <div class="carre-rouge" style="float: right"></div>
+                                            {% elseif 'enquete' in file.filenameWithoutExtension %}
+                                                <div class="carre-vert" style="float: right"></div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

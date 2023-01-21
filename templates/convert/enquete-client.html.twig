@@ -1,0 +1,115 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    Convention de formation
+
+{% endblock %}
+
+{% block body %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 100px">
+    </div>
+    <div style="float: right; padding-bottom: 20px;">
+        <h3>ENQUÊTE CLIENT</h3>
+        <p style="font-size: 15px">
+            Numéro de dossier : {{ refdossier }}<br>
+            {{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }} - Formateur(trice) <br>
+            Téléphone : {{ planif.formateur.formateurPhone }}<br>
+            Adresse e-Mail : {{ planif.formateur.formateurMail }}</p>
+    </div>
+    <hr style="clear: both">
+    <div style="padding-top: 20px;">
+        <div>
+            <p>Raison Sociale du client : <span>{{ planif.client.nomSociete }}</span></p>
+            <p>Intitulé de la formation : <span>{{ planif.programme.nomFormation }}</span></p>
+            {% if planif.dates.count > 1 %}
+                <p>
+                    Dates de la formation : du <span>{{ planif.dates.first.dateJour }}-{{ planif.dates.first.dateMois }}-{{ planif.dates.first.dateAnnee }}</span>
+                    au <span>{{ planif.dates.last.dateJour }}-{{ planif.dates.last.dateMois }}-{{ planif.dates.last.dateAnnee }}</span>
+                </p>
+            {% else %}
+                <p>Date de la formation : <span>{{ planif.dates.first.dateJour }}-{{ planif.dates.first.dateMois }}-{{ planif.dates.first.dateAnnee }}</span></p>
+            {% endif %}
+        </div>
+        <hr>
+        <div>
+            <h5>ORGANISATION DE LA FORMATION :</h5>
+            <table class="enquete">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Pas du tout</th>
+                    <th>Insuffisamment</th>
+                    <th>En partie</th>
+                    <th>Totalement</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>L’offre est-elle claire et disponible ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Les formalités d’inscription sont-elles claires et facile d’accès ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Les informations transmises avant la formation ont-elles étés bien communiqués ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Les éléments contractuels ont-ils été bien respectés ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>La formation a-t-elle été utile dans le développement des compétences recherchées ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Avez-vous apprécié la relation avec notre organisme dans sa globalité ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <div style="margin-bottom: 60px">
+            <h5>Recommanderiez vous cet organisme de formation ?</h5>
+            <ul>
+                <li>OUI</li>
+                <li>NON</li>
+            </ul>
+        </div>
+        <hr>
+        <div>
+            <h5>Autres remarques :</h5>
+            <div class="cadre"></div>
+        </div>
+        <hr>
+        <div>
+            <p style="float: left">Fait à {{ planif.ville }} le :</p>
+            <p style="float: right; padding-right: 150px;">Signature du client</p>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title  %}
+
+    FORM'Abil - Édition de  {{ formateur.formateurNom }} {{ formateur.formateurPrenom }}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Mettre à jour le formateur {{ formateur.formateurNom }} {{ formateur.formateurPrenom }}</h1>
+        </div>
+        {{ form_start(form) }}
+        <div class="row mt-4">
+            <div class="col-md-2">{{ form_row(form.formateur_nom) }}</div>
+            <div class="col-md-2">{{ form_row(form.formateur_prenom) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">{{ form_row(form.formateur_mail) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">{{ form_row(form.formateur_phone) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6 file-type-input">{{ form_row(form.cvFile) }}</div>
+        </div>
+        <button class="btn btn-primary mt-4">{{ button | default('Appliquer') }}</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+

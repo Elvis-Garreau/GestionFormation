@@ -1,0 +1,95 @@
+{%  extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Gestion dates' %}
+
+{% block body %}
+
+    {% set heures_planif = 0 %}
+    {% for date in dates %}
+        {% set minutes_matin = 0 %}
+        {% set heures_matin = 0 %}
+        {% set minutes_matin = (date.heureFinMatin - date.heureDebutMatin)*60 %}
+        {% set heures_matin = (minutes_matin + date.minuteFinMatin - date.minuteDebutMatin)/60 %}
+        {% set minutes_am = 0 %}
+        {% set heures_am = 0 %}
+        {% set minutes_am = (date.heureFinAm - date.heureDebutAm)*60 %}
+        {% set heures_am = (minutes_am + date.minuteFinAm - date.minuteDebutAm)/60 %}
+        {% set heures_date = 0 %}
+        {% set heures_date = heures_matin + heures_am %}
+        {% set heures_planif = heures_planif + heures_date %}<br>
+    {% endfor %}
+
+    {% set total_heures = 0 %}
+    {% for module in planif.programme.moduleFormations %}
+        {% set total_heures = total_heures + module.nombreHeure %}
+    {% endfor %}
+
+    <div class="right-side">
+
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+
+        <div class="row mt-4">
+            <h1>Gérer les dates pour la planification de : {{ planif.programme.nomFormation }}</h1>
+        </div>
+
+        {% for message in app.flashes('succes') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+
+        {% if heures_planif != total_heures %}
+            <div class="col-md-12">
+                <p class="alert alert-danger mt-2" role="alert">
+                    Attention votre programme est prévu pour {{ total_heures }}h de formation.<br>
+                    Hors vous avez planifié une formation de {{ heures_planif }}h
+                </p>
+            </div>
+        {% endif %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>date</th>
+                <th>matin</th>
+                <th>après-midi</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for date in dates %}
+                <tr>
+                    <td>{{ date.dateJour }}-{{ date.dateMois }}-{{ date.dateAnnee }}</td>
+                    {% if date.heureDebutMatin == 00 %}
+                        <td>-</td>
+                    {% else %}
+                        <td>{{ date.heureDebutMatin }}h{{ date.minuteDebutMatin }} - {{ date.heureFinMatin }}h{{ date.minuteFinMatin }}</td>
+                    {% endif %}
+                    {% if date.heureDebutAm == 00 %}
+                        <td>-</td>
+                    {% else %}
+                        <td>{{ date.heureDebutAm }}h{{ date.minuteDebutAm }} - {{ date.heureFinAm }}h{{ date.minuteFinAm }}</td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ path('admin.date.edit', {id: date.id}) }}" class="btn btn-secondary">Éditer</a>
+                        <form method="post" action="{{ path('admin.date.delete', {id: date.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment Supprimer cette date ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ date.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-end">
+            <a href="{{ path('admin.date.new', {id: planif.id}) }}" class="btn btn-primary">+ Ajouter une date</a>
+        </div>
+    </div>
+
+{% endblock %}

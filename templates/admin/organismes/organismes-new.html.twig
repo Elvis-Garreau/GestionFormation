@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title  %}
+
+    FORM'Abil - Créer Organisme
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        <h1>Créer un nouvel organisme</h1>
+        {{ include('admin/organismes/organismes-form.html.twig', {form: form, button: 'Créer'}) }}
+    </div>
+
+{% endblock %}

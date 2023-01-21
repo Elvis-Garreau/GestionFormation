@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title  %}
+
+    FORM'Abil - Édition de  {{ formation.nomFormation }}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+
+        <div class="row mt-4">
+            <h1>Mettre à jour la formation {{ formation.nomFormation }}</h1>
+        </div>
+        {{ form_start(form) }}
+        <div class="row mt-4">
+            {{ form_row(form.public) }}
+        </div>
+        <button class="btn btn-primary mt-4">{{ button | default('Appliquer') }}</button>
+        {{ form_end(form) }}
+        <div class="mt-4">
+            <a href="{{ path('admin.objectifs.index', {id: formation.id}) }}" class="btn btn-primary">Modifier les ojectifs</a>
+            <a href="{{ path('admin.modules.index', {id: formation.id}) }}" class="btn btn-primary">Modifier les modules</a>
+            <a href="{{ path('admin.prerequis.index', {id: formation.id}) }}" class="btn btn-primary">Modifier les prérequis</a>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Veilles
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Veilles</h1>
+        </div>
+
+        {% for message in app.flashes('succes') %}
+            <div class="alert alert-success mt-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="row">
+            <p>Vous trouverez ici les différents éléments de preuve de la veille effectué par votre organisme.</p>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Intitulé</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for veille in veilles %}
+                <tr>
+                    <td>{{ veille.intitule }}</td>
+                    <td>{{ veille.description }}</td>
+                    <td>
+                        <a href="{{ path('admin.veille.edit', {id: veille.id}) }}" class="btn btn-secondary">Modifier</a>
+                        <form method="post" action="{{ path('admin.veille.delete', {id: veille.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment Supprimer cette veille ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ veille.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                        <a href="{{ vich_uploader_asset(veille, 'veilleFile') }}" class="btn btn-primary" target="_blank">Télécharger</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('admin.veille.new', {id: app.user.organisme.id}) }}" class="btn btn-primary mt-4">+ Ajouter une veille</a>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+<div class="row mt-4">
+    <div class="col-md-6">{{ form_row(form.nom_societe) }}</div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-6">{{ form_row(form.adresse_rue) }}</div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-3">{{ form_row(form.adresse_cp) }}</div>
+    <div class="col-md-3">{{ form_row(form.adresse_ville) }}</div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-3">{{ form_row(form.representant_nom) }}</div>
+    <div class="col-md-3">{{ form_row(form.representant_prenom) }}</div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-3">{{ form_row(form.representant_telephone) }}</div>
+    <div class="col-md-3">{{ form_row(form.representant_mail) }}</div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-6">{{ form_row(form.siret) }}</div>
+</div>
+<button class="btn btn-primary mt-4">{{ button | default('Appliquer') }}</button>
+{{ form_end(form) }}

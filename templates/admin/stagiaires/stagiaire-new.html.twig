@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Création Stagiaire' %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Ajouter un Stagiaire</h1>
+        </div>
+        {{ form_start(form) }}
+        <div class="row mt-4">
+            {{ form_row(form.nom) }} {{ form_row(form.prenom) }}
+        </div>
+        <div class="row mt-2">
+            {{ form_row(form.mail) }} {{ form_row(form.telephone) }}
+        </div>
+        <div class="row mt-2">
+            {{ form_row(form.qualite) }}
+        </div>
+        <button class="btn btn-primary mt-4">{{ button | default('Ajouter') }}</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

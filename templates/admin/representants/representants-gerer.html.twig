@@ -1,0 +1,52 @@
+{%  extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Gestion Representants' %}
+
+{% block body %}
+    <div class="right-side">
+
+        {% if organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+
+        <div class="row mt-4">
+            <h1>Gérer les representants de l'organisme : {{ organisme.nomOf }}</h1>
+        </div>
+
+        {% for message in app.flashes('succes') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom du représentant</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for representant in representants %}
+                <tr>
+                    <td>{{ representant.nom }} {{ representant.prenom }}</td>
+                    <td>
+                        <a href="{{ path('admin.representant.edit', {id: representant.id}) }}" class="btn btn-secondary">Éditer</a>
+                        <form method="post" action="{{ path('admin.representant.delete', {id: representant.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment Supprimer ce Stagiaire ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ representant.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-end">
+            <a href="{{ path('admin.representant.new', {id: organisme.id}) }}" class="btn btn-primary">+ Ajouter un représentant</a>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Bulletin d'inscription
+
+{% endblock %}
+
+{% block body %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(programme.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 65px">
+    </div>
+    <hr style="clear: both">
+    <div>
+        <h1 style="text-align: center">
+            Bulletin d'inscription pour la formation <br>
+            {{ programme.nomFormation }}
+        </h1>
+    </div>
+    <hr>
+    <div>
+        <p>Vous souhaitez participer à une de nos sessions de formation, pour ce faire merci de bien vouloir remplir le bulletin d'inscription suivant.</p>
+    </div>
+    <hr>
+    <div>
+        <p>Nom de l'entreprise :</p>
+        <hr style="margin-right: 60%">
+        <p>Adresse :</p>
+        <p>Code Postal :</p>
+        <p>Ville :</p>
+        <hr style="margin-right: 60%">
+        <p>Numéro de téléphone :</p>
+        <p>Adresse e-Mail :</p>
+        <hr style="margin-right: 60%">
+        <p>Nom et Prénom du/des représentants légaux :</p>
+        <p>Numéro de SIRET :</p>
+    </div>
+    <hr>
+    <div class="row">
+        <p>Fait à :<br>
+            le :</p>
+    </div>
+    <div class="row" style="float: left">
+        <p>
+            Signature et cachet de l'entreprise
+        </p>
+    </div>
+    <div class="row" style="float: right; padding-right: 100px; padding-bottom: 80px;">
+        <p>
+            Signature et cachet de l'organisme de formation
+        </p>
+    </div>
+
+{% endblock %}

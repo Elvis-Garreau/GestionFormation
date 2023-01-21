@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Clients' %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Les Clients de {{ app.user.organisme.nomOf }}</h1>
+        </div>
+        <div class="row mt-4">
+            {{ form_start(form) }}
+            <div class="col-md-3" style="float: left; margin-right: 20px;">
+                {{ form_row(form.mot) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <hr class="mt-4">
+        <div class="row mt-4">
+            {% for client in clients %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-clients">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ client.nomSociete }}</h5>
+                                <hr>
+                                <p class="card-text">Représenté par : {{ client.representantNom }} {{ client.representantPrenom }}</p>
+                                <a href="{{ path('client.show', {id: client.id}) }}" class="btn btn-primary">Voir</a>
+                                <a href="{{ path('admin.client.edit', {id: client.id}) }}" class="btn btn-primary">Éditer</a>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+            <div class="pagination">
+                {{ knp_pagination_render(clients) }}
+            </div>
+            <div class="row mt-3">
+                <div>
+                    <a href="{{ path('admin.clients.index') }}" class="btn btn-primary" style="margin-right: 15px">Gérer mes Clients</a>
+                    <a href="{{ path('admin.client.new') }}" class="btn btn-primary">+ Ajouter un Client</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Création Représentant' %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Ajouter un représentant légal</h1>
+        </div>
+        {{ form_start(form) }}
+        <div class="row mt-4">
+            <div class="col-md-3">{{ form_row(form.nom) }}</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-3">{{ form_row(form.prenom) }}</div>
+        </div>
+        <button class="btn btn-primary mt-4">{{ button | default('Ajouter') }}</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

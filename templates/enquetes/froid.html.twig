@@ -1,0 +1,189 @@
+{% extends 'login.html.twig' %}
+
+{% block title %}
+    FORM'Abil - Enquête à froid
+{% endblock %}
+
+{% block body %}
+
+    <div class="enquetes">
+
+        <div class="row ofLogo">
+            <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme">
+        </div>
+        <div class="row mt-4">
+            <h1>Enquête à froid</h1>
+        </div>
+        <div class="row mt-4">
+            <p>
+                Bonjour <span>{{ stagiaire.prenom }}</span>, vous êtes invité à remplir de nouveau ce formulaire car vous terminé la formation <span>{{ planif.programme.nomFormation }}</span> il y a maintenant plus d'un mois.
+            </p>
+            <p>
+                Vous avez pu mettre en pratique les compétences apprisent lors de cette formation et il est possible que vos réponses aient changées.
+            </p>
+        </div>
+
+        <hr>
+
+        {{ form_start(form) }}
+
+        <h4>Organisation :</h4>
+        <div class="cadre">
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.duree_stage) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.duree_stage) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.support_formation) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.support_formation) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.formateur_clair) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.formateur_clair) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.formateur_adapte) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.formateur_adapte) }}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h4>Déroulement et compréhension :</h4>
+        <div class="cadre">
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.programme_clair) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.programme_clair) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.programme_adapte) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.programme_adapte) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.objectif_formation) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.objectif_formation) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.compris_objectif) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.compris_objectif) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.exercices_pertinents) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.exercices_pertinents) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.competences_ameliorees) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.competences_ameliorees) }}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h4>Autre :</h4>
+        <div class="cadre">
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.condition_accueil) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.condition_accueil) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.apprecie_global) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.apprecie_global) }}
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-12 form-group">
+                <div class="form-label">
+                    {{ form_label(form.recommande) }}
+                </div>
+                <div class="form-widget">
+                    {{ form_widget(form.recommande) }}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="mt-4 form-group">
+            <h4>{{ form_label(form.points_forts) }}</h4>
+            <div class="cadre">
+                {{ form_widget(form.points_forts) }}
+            </div>
+        </div>
+        <hr>
+        <div class="mt-4 form-group">
+            <h4>{{ form_label(form.points_faibles) }}</h4>
+            <div class="cadre">
+                {{ form_widget(form.points_faibles) }}
+            </div>
+        </div>
+        <hr>
+        <div class="mt-4 form-group" style="margin-bottom: 40px">
+            <h4>{{ form_label(form.autres_remarques) }}</h4>
+            <div class="cadre">
+                {{ form_widget(form.autres_remarques) }}
+            </div>
+        </div>
+
+        <button class="btn btn-primary mt-4">{{ button | default('Valider l\'enquête') }}</button>
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+

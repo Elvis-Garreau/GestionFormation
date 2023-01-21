@@ -1,0 +1,99 @@
+{%  extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Accueil' %}
+
+
+{% block body %}
+
+    <div class="right-side home">
+        <div class="row home-title mt-4">
+            <h1 style="text-transform: capitalize">Bonjour {{ app.user.prenom }}!</h1>
+        </div>
+        <hr>
+        <div class="row mt-4 text-center">
+            <p>Vous êtes actuellement connecté en tant qu'{{ status }} en charge de l'organisme de formation <span>{{ app.user.organisme.nomOf }}</span></p>
+        </div>
+        <div class="row" style="width: 200px; margin: 0 auto 50px auto">
+            <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+        </div>
+
+        <hr>
+
+        <div class="row mt-4">
+            <h2>Quelques chiffres clés</h2>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-3 comptage">
+                <p>
+                    <span>{{ countFormations }}</span><br>
+                    <br>
+                    Programmes<br>
+                    Créés
+                </p>
+            </div>
+            <div class="col-md-3 comptage">
+                <p>
+                    <span>{{ countFormateurs }}</span><br>
+                    <br>
+                    Formateurs<br>
+                    Dans mon organisme
+                </p>
+            </div>
+            <div class="col-md-3 comptage">
+                <p>
+                    <span>{{ countClients }}</span><br>
+                    <br>
+                    Clients<br>
+                    Enregistrés
+                </p>
+            </div>
+            <div class="col-md-3 comptage">
+                <p>
+                    <span>{{ countPlanifs }}</span><br>
+                    <br>
+                    Formations<br>
+                    déjà planifiées
+                </p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row mt-4">
+            <h2>Ce que FORM'Abil vous apporte</h2>
+            <p class="mt-2">Bien plus qu’un simple logiciel de gestion des formations.<br>
+                Cet outil vous permet de générer tous les documents nécessaires à un dossier de formation suivant le Référentiel National Qualité en répondant aux 7 critères.</p>
+            <p>FORM’ABIL vous fait gagner un temps précieux dans la gestion administrative de vos formations.<br>
+                Il permet de digitaliser l’ensemble de vos documents, d’envoyer les mails directement chez vos clients et d’assurer un suivi global et centralisé de vos formations. Cet outil sera votre allié au quotidien, simple d’utilisation, véritable guide de votre démarche Qualiopi. Il génère des plans d’action intégrés et votre Bilan Pédagogique et Financier (BPF).</p>
+        </div>
+
+        <hr>
+
+        <div class="row mt-4">
+            <h2>Le referentiel National QUALIOPI</h2>
+            <p class="mt-2">
+                Tout d’abord Qualiopi est une certification, elle remplace à terme le référencement Datadock ou bien les labels dit CNEFOP.
+            </p>
+            <p>
+                La certification qualiopi permet à son détenteur de pouvoir bénéficier des fonds de formation de ses clients à compter du 01 Janvier 2022. Cette certification est délivrée lorsque l’organisme prouve que son processus qualité respecte le RNQ (Référentiel National de Qualité).
+            </p>
+            <h5>Les 7 critères RNQ :</h5>
+            <ul>
+                <li>Qualiopi critère 1 : <span>Information au public</span></li>
+                <li>Qualiopi critère 2 : <span>Objectif et adaptation des prestations</span></li>
+                <li>Qualiopi critère 3 : <span>Accueil, suivi et évaluation du public</span></li>
+                <li>Qualiopi critère 4 : <span>Adéquations des moyens</span></li>
+                <li>Qualiopi critère 5 : <span>Qualification du personnel</span></li>
+                <li>Qualiopi critère 6 : <span>Investissement dans l'environnement professionnel</span></li>
+                <li>Qualiopi critère 7 : <span>Appréciations et amélioration continue</span></li>
+            </ul>
+            <p>Le lien suivant vous permet de télécharger le guide officiel du référentiel national Qualiopi :</p>
+            <div style="text-align: center">
+                <a href="https://travail-emploi.gouv.fr/IMG/pdf/guide-lecture-referentiel-qualite.pdf" class="btn btn-primary" target="_blank">Guide Officiel</a>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

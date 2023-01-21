@@ -1,0 +1,263 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Formation {{ planif.programme.nomFormation }}
+
+{% endblock %}
+
+{% block body %}
+
+    {% set heures_planif = 0 %}
+    {% for date in planif.dates %}
+        {% set minutes_matin = 0 %}
+        {% set heures_matin = 0 %}
+        {% set minutes_matin = (date.heureFinMatin - date.heureDebutMatin)*60 %}
+        {% set heures_matin = (minutes_matin + date.minuteFinMatin - date.minuteDebutMatin)/60 %}
+        {% set minutes_am = 0 %}
+        {% set heures_am = 0 %}
+        {% set minutes_am = (date.heureFinAm - date.heureDebutAm)*60 %}
+        {% set heures_am = (minutes_am + date.minuteFinAm - date.minuteDebutAm)/60 %}
+        {% set heures_date = 0 %}
+        {% set heures_date = heures_matin + heures_am %}
+        {% set heures_planif = heures_planif + heures_date %}<br>
+    {% endfor %}
+
+    {% set total_heures = 0 %}
+    {% for module in planif.programme.moduleFormations %}
+        {% set total_heures = total_heures + module.nombreHeure %}
+    {% endfor %}
+    {% set nombre_jours = total_heures/7 %}
+
+    <div class="right-side">
+
+
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+
+        <div class="planification mt-4">
+            <div class="row mt-4 titre">
+                <h1>Planification de la formation: {{ planif.programme.nomFormation }}</h1>
+            </div>
+            <div>
+
+                {% if heures_planif == total_heures %}
+                    {% if files %}
+                        <form method="post"
+                              action="{{ path('convert-planif', {id: planif.id}) }}"
+                              style="display: inline-block"
+                              onsubmit="return confirm('Vous avez déjà créé des documents pour cette formation. si vous continuez cela écrasera les documents créés précédemment. Êtes vous sur de vouloir continuer ?')">
+                            <input type="hidden" name="_method" value="CONVERT">
+                            <button class="btn btn-primary" style="margin-left: 20px">Éditer les documents</button>
+                        </form>
+                        <a href="{{ path('planif.finder', {id: planif.id}) }}" class="btn btn-primary" style="margin-left: 20px">Voir les documents</a>
+                    {% else %}
+                        <form method="post"
+                              action="{{ path('convert-planif', {id: planif.id}) }}"
+                              style="display: inline-block"
+                              onsubmit="return confirm('Vous êtes sur le point de créer les documents relatifs à cette formation. Cela peut prendre quelques minutes.')">
+                            <input type="hidden" name="_method" value="CONVERT">
+                            <button class="btn btn-primary" style="margin-left: 20px">Éditer les documents</button>
+                        </form>
+                    {% endif %}
+                {% endif %}
+                <a href="{{ path('enquete.client.form', {planifId: planif.id}) }}" class="btn btn-primary">Lien de l'enquête client</a>
+
+                {% if planif.enqueteChauds.count > 0 %}
+                    <a href="{{ path('depouillement', {id: planif.id}) }}" class="btn btn-primary">Dépouillement</a>
+                {% endif %}
+
+            </div>
+            <div class="row mt-4">
+                <h5>Durée de la formation : {{ total_heures }} h - soit {{ nombre_jours|round(1, 'ceil') }} jours</h5>
+            </div>
+            <hr>
+            <div class="row mt-4">
+                <p>Cout de la formation : {{ planif.prix }}€</p>
+                {% if planif.stagiaires.count > 0 %}
+                    {% set cout_stagiaire = planif.prix / planif.stagiaires.count %}
+                    <p>Soit {{ cout_stagiaire|round(2, 'floor') }}€ par stagiaire.</p>
+                {% endif %}
+            </div>
+            <hr>
+
+            <div class="row mt4">
+                <h4 class="mt-4">Dates & Horaires :</h4>
+
+                {% if heures_planif != total_heures %}
+                    <div class="col-md-12">
+                        <p class="alert alert-danger mt-2" role="alert">
+                            Attention votre programme est prévu pour {{ total_heures }}h de formation.<br>
+                            Hors vous avez planifié une formation de {{ heures_planif }}h
+                        </p>
+                    </div>
+                {% endif %}
+                <div class="col-md-12 cadre" style="margin: 20px 10px; padding: 10px;">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Matin</th>
+                        <th>Après-midi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for date in planif.dates %}
+                        <tr>
+                            <td>{{ date.dateJour }}-{{ date.dateMois }}-{{ date.dateAnnee }}</td>
+                            {% if date.heureDebutMatin == 00 %}
+                                <td>-</td>
+                            {% else %}
+                                <td>{{ date.heureDebutMatin }}h{{ date.minuteDebutMatin }} - {{ date.heureFinMatin }}h{{ date.minuteFinMatin }}</td>
+                            {% endif %}
+                            {% if date.heureDebutAm == 00 %}
+                                <td>-</td>
+                            {% else %}
+                                <td>{{ date.heureDebutAm }}h{{ date.minuteDebutAm }} - {{ date.heureFinAm }}h{{ date.minuteFinAm }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                <div>
+                    <a href="{{ path('admin.dates.index', {id: planif.id}) }}" class="btn btn-primary">Modifier les dates</a>
+                </div>
+            </div>
+            <div class="row mt4">
+                <h4 class="mt-4">Client :</h4>
+                <div class="col-md-12 cadre" style="margin: 20px 10px; padding: 10px;">
+                    <p>Société : {{ planif.client.nomSociete }}</p>
+                    <p>Numéro de SIRET : {{ planif.client.siretFormated }}</p>
+                    <p>Représentée par : {{ planif.client.representantPrenom }} {{ planif.client.representantNom }}</p>
+                </div>
+            </div>
+            <div class="row mt4">
+                <h4 class="mt-4">Stagiaires :</h4>
+                {% if planif.stagiaires.count == 0 %}
+                    <div class="col-md-12">
+                        <p class="alert alert-danger mt-2" role="alert">
+                            Attention vous n'avez pas rentré de stagiaire pour cette formation.
+                        </p>
+                    </div>
+                {% endif %}
+                <div class="col-md-12 cadre" style="margin: 20px 10px; padding: 10px;">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Qualité</th>
+                            <th>Liens Enquêtes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for stagiaire in planif.stagiaires %}
+                            <tr>
+                                <td>{{ stagiaire.nom }}</td>
+                                <td>{{ stagiaire.prenom }}</td>
+                                <td>{{ stagiaire.qualite }}</td>
+                                <td>
+                                    <a href="{{ path('enquete.chaud.form', {planifId: planif.id, stagiaireId: stagiaire.id}) }}" class="btn btn-secondary" target="_blank">Enqête à chaud</a>
+                                    <a href="{{ path('enquete.froid.form', {planifId: planif.id, stagiaireId: stagiaire.id}) }}" class="btn btn-secondary" target="_blank">Enqête à froid</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <a href="{{ path('admin.stagiaires.index', {id: planif.id}) }}" class="btn btn-primary">Modifier les stagiaires</a>
+
+                    {% if heures_planif == total_heures %}
+                        {% if files %}
+                            <form method="post"
+                                  action="{{ path('convert-planif-enquetes', {id: planif.id}) }}"
+                                  style="display: inline-block"
+                                  onsubmit="return confirm('Vous avez déjà créé des documents pour cette formation. si vous continuez cela écrasera les documents créés précédemment. Êtes vous sur de vouloir continuer ?')">
+                                <input type="hidden" name="_method" value="CONVERT">
+                                <button class="btn btn-primary" style="margin-left: 20px">Éditer les enquêtes</button>
+                            </form>
+                            <a href="{{ path('planif.finder', {id: planif.id}) }}" class="btn btn-primary" style="margin-left: 20px">Voir les documents</a>
+                        {% else %}
+                            <form method="post"
+                                  action="{{ path('convert-planif-enquetes', {id: planif.id}) }}"
+                                  style="display: inline-block"
+                                  onsubmit="return confirm('Vous êtes sur le point de créer les documents relatifs à cette formation. Cela peut prendre quelques minutes.')">
+                                <input type="hidden" name="_method" value="CONVERT">
+                                <button class="btn btn-primary" style="margin-left: 20px">Éditer les enquêtes papier</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row mt4">
+                <h4 class="mt-4">Programme de formation :</h4>
+                <div class="col-md-12 cadre" style="margin: 20px 10px; padding: 10px;">
+                    <h5>Intitulé de la formation : </h5>
+                    <p>{{ planif.programme.nomFormation }}</p>
+                    <h5>Objectifs :</h5>
+                    {% for objectif in planif.programme.objectifs %}
+                        <p>- {{ objectif.nomObjectif }}</p>
+                    {% endfor %}
+                    <h5>Prérequis :</h5>
+                    {% for prerequis in planif.programme.prerequis %}
+                        <p>- {{ prerequis.nomPrerequi }}</p>
+                    {% endfor %}
+                    <h5>Programme détaillé :</h5>
+                    {% for module in planif.programme.moduleFormations %}
+                        <p><span style="font-weight: bold">- {{ module.nomModule }} - {{ module.nombreHeure }}h</span></p>
+                        {% autoescape false %}
+                            <p>{{ module.description|replace({'\r\n': '<br>'})  }}</p>
+                        {% endautoescape %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mt4">
+                <h4 class="mt-4">Formateur :</h4>
+                <div class="col-md-12 cadre" style="margin: 20px 10px; padding: 10px;">
+                    <h5>Nom - Prénom: </h5>
+                    <p>{{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }}</p>
+                    <h5>Adresse e-Mail :</h5>
+                    <p>{{ planif.formateur.formateurMail }}</p>
+                    <h5>Numéro de téléphone :</h5>
+                    <p>{{ planif.formateur.telephoneFormated }}</p>
+                    {% if planif.formateur.filename %}
+                        <a href="{{ vich_uploader_asset(planif.formateur, 'cvFile') }}" class="btn btn-primary" target="_blank">Télécharger le CV</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row mt4">
+                <h4 class="mt-4">Lieu de la formation :</h4>
+                <div class="col-md-12 cadre" style="margin: 20px 10px; padding: 10px;">
+                        <p>{{ planif.adresse }}<br>
+                        Code Postal : {{ planif.codePostal }}<br>
+                        Ville : {{ planif.ville }}<br>
+                        Étage : {{ planif.etage }}<br>
+                        Salle : {{ planif.salle }}</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <h4 class="mt-4">Modalités d'organistation :</h4>
+                <div class="col-md-12 cadre" style="margin: 20px 10px; padding: 10px;">
+                    <p>
+                        {% if planif.modaliteOrga != null %}
+                            {% autoescape false %}
+                                {{ planif.modaliteOrga|replace({'\r\n': '<br>'})  }}
+                            {% endautoescape %}
+                        {% else %}
+                            Aucune information complémentaire.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <a href="{{ path('admin.planif.edit', {id: planif.id}) }}" class="btn btn-primary">Modifier la planification</a>
+        </div>
+    </div>
+{% endblock %}

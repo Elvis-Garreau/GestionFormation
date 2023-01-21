@@ -1,0 +1,52 @@
+{%  extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Gestion Organismes' %}
+
+{% block body %}
+    <div class="right-side">
+        <h1>Gérer mes organismes</h1>
+
+        {% for message in app.flashes('succes') %}
+
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom de l'organisme</th>
+                <th>Représentant</th>
+                <th>Chargé(e) de formations</th>
+                <th>Nombre de formations</th>
+                <th>Nombre de formateurs</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for organisme in organismes %}
+                <tr>
+                    <td>{{ organisme.nomOf }}</td>
+                    <td>
+                        {% for representant in organisme.representant %}
+                            {{ representant.nom }} {{ representant.prenom }}
+                        {% endfor %}
+                    </td>
+                    <td>{{ organisme.cfNom }} {{ organisme.cfPrenom }}</td>
+                    <td>{{ organisme.formations.count }}</td>
+                    <td>{{ organisme.formateurs.count }}</td>
+                    <td>
+                        <a href="{{ path('admin.organisme.edit', {id: organisme.id}) }}" class="btn btn-secondary">Éditer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-end">
+            <a href="{{ path('admin.organisme.new') }}" class="btn btn-primary">+ Ajouter un organismes</a>
+        </div>
+    </div>
+
+{% endblock %}

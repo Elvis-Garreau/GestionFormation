@@ -1,0 +1,222 @@
+{%  extends 'convert-base.html.twig' %}
+
+{% block title %}
+
+    Convention de formation
+
+{% endblock %}
+
+{% block body %}
+
+    <div>
+        <img src="{{ vich_uploader_asset(planif.organisme, 'imageFile') }}" alt="logo de l'organisme" style="float: left; height: 100px">
+    </div>
+    <div style="float: right; padding-bottom: 20px">
+        <h3>ENQUÊTE A CHAUD</h3>
+        <p style="font-size: 15px">
+            Numéro de dossier : {{ refdossier }}<br>
+            {{ planif.formateur.formateurNom }} {{ planif.formateur.formateurPrenom }} - Formateur(trice) <br>
+            Téléphone : {{ planif.formateur.formateurPhone }}<br>
+            Adresse e-Mail : {{ planif.formateur.formateurMail }}</p>
+    </div>
+    <hr style="clear: both">
+    <div style="padding-top: 20px;">
+        <div>
+            <p>Raison Sociale du client : <span>{{ planif.client.nomSociete }}</span></p>
+            <p>Nom et prénom du stagiaire : <span>{{ stagiaire.nom }} {{ stagiaire.prenom }}</span></p>
+            <p>Intitulé de la formation : <span>{{ planif.programme.nomFormation }}</span></p>
+            {% if planif.dates.count > 1 %}
+                <p>
+                    Dates de la formation : du <span>{{ planif.dates.first.dateJour }}-{{ planif.dates.first.dateMois }}-{{ planif.dates.first.dateAnnee }}</span>
+                    au <span>{{ planif.dates.last.dateJour }}-{{ planif.dates.last.dateMois }}-{{ planif.dates.last.dateAnnee }}</span>
+                </p>
+            {% else %}
+                <p>Date de la formation : <span>{{ planif.dates.first.dateJour }}-{{ planif.dates.first.dateMois }}-{{ planif.dates.first.dateAnnee }}</span></p>
+            {% endif %}
+        </div>
+        <hr>
+        <div>
+            <h5>ORGANISATION DE LA FORMATION :</h5>
+            <table class="enquete">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Pas du tout</th>
+                    <th>Insuffisamment</th>
+                    <th>En partie</th>
+                    <th>Totalement</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>La durée du stage vous a-t-elle semblé adaptée ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Les supports de formation étaient-ils clairs et utiles ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Le formateur était-il clair et dynamique ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Le formateur a-t-il adapté la formation aux stagiaires ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <div>
+            <h5>DÉROULEMENT ET COMPRÉHENSION :</h5>
+            <table class="enquete">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Pas du tout</th>
+                    <th>Insuffisamment</th>
+                    <th>En partie</th>
+                    <th>Totalement</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Le programme était-il clair et précis ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Le programme était-il adapté à vos besoins ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Les objectifs de la formation ont-ils été clairement annoncés ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Avez-vous compris et retenu les objectifs de la formation ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Les exercices et activités étaient-ils pertinents ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Cette formation améliore-t-elle vos compétences ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <div>
+            <h5>AUTRE :</h5>
+            <table class="enquete">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Pas du tout</th>
+                    <th>Insuffisamment</th>
+                    <th>En partie</th>
+                    <th>Totalement</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Les conditions d’accueil ont-elles été de qualité ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                <tr>
+                    <td>Avez-vous apprécié la formation dans sa globalité ?</td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                    <td class="retour"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <div style="margin-bottom: 60px">
+            <h5>Recommanderiez vous cette formation ?</h5>
+            <ul>
+                <li>OUI</li>
+                <li>NON</li>
+            </ul>
+        </div>
+        <div>
+            <h5>Points forts de la formation :</h5>
+            <div class="cadre"></div>
+        </div>
+        <hr>
+        <div>
+            <h5>Points faibles de la formation :</h5>
+            <div class="cadre"></div>
+        </div>
+        <hr>
+        <div>
+            <h5>Autres remarques :</h5>
+            <div class="cadre"></div>
+        </div>
+        <hr>
+        <div style="float: left">
+            <h5>Documents remis lors de la formation</h5>
+            <ul>
+                <li>Attestation de présence</li>
+                <li>Programme de la formation</li>
+                <li>Procédure d'admission et d'évaluation</li>
+                <li>Convocation</li>
+                <li>Règlement intérieur</li>
+            </ul>
+        </div>
+        <div style="float: right">
+            <h5>Documents mis à disposition lors de la formation</h5>
+            <ul>
+                <li>Bail de location du lieu de formation</li>
+                <li>Plan des locaux</li>
+                <li>Organigramme de l’entreprise formatrice</li>
+                <li>Document unique des risques</li>
+                <li>Bulletin d’adhésion à des veilles légales</li>
+            </ul>
+        </div>
+        <hr style="clear: both">
+        <div>
+            <p style="float: left">Fait à {{ planif.ville }} le : </p>
+            <p style="float: right; padding-right: 150px;">Signature du stagiaire</p>
+        </div>
+    </div>
+
+{% endblock %}

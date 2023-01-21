@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Les formations plannifiées' %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Les formations planifiées</h1>
+        </div>
+        <div class="row mt-4">
+            <h4 class="mb-2">Les formations à venir :</h4>
+            {% for planif in planifs %}
+                    {% set date_debut = 'non définie' %}
+                    {% set date_filtre = 'non définie' %}
+                    {% if planif.dates.count > 0 %}
+                        {% set date_debut = planif.dates.first.dateJour ~ '-' ~ planif.dates.first.dateMois ~ '-' ~ planif.dates.first.dateAnnee %}
+                        {% set date_filtre = planif.dates.first.dateAnnee ~ '-' ~ planif.dates.first.dateMois ~ '-' ~ planif.dates.first.dateJour %}
+                    {% endif %}
+                    {% if date_filtre > 'now'|date('Y-m-d') %}
+
+                        {% set heures_planif = 0 %}
+                        {% for date in planif.dates %}
+                            {% set minutes_matin = 0 %}
+                            {% set heures_matin = 0 %}
+                            {% set minutes_matin = (date.heureFinMatin - date.heureDebutMatin)*60 %}
+                            {% set heures_matin = (minutes_matin + date.minuteFinMatin - date.minuteDebutMatin)/60 %}
+                            {% set minutes_am = 0 %}
+                            {% set heures_am = 0 %}
+                            {% set minutes_am = (date.heureFinAm - date.heureDebutAm)*60 %}
+                            {% set heures_am = (minutes_am + date.minuteFinAm - date.minuteDebutAm)/60 %}
+                            {% set heures_date = 0 %}
+                            {% set heures_date = heures_matin + heures_am %}
+                            {% set heures_planif = heures_planif + heures_date %}<br>
+                        {% endfor %}
+
+                        {% set total_heures = 0 %}
+                        {% for module in planif.programme.moduleFormations %}
+                            {% set total_heures = total_heures + module.nombreHeure %}
+                        {% endfor %}
+
+                        <div class="col-md-4 card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title mb-2">{{ planif.programme.nomFormation }}</h5>
+                                <hr>
+                                <h6 class="card-subtitle mb-2 text-muted">Client : {{ planif.client.nomSociete }}</h6>
+                                <p>Date de la formation : {{ date_debut }}</p>
+                                {% if heures_planif != total_heures %}
+                                    <p class="alert alert-danger mt-2" role="alert">Attention !  - Vérifiez vos dates</p>
+                                {% endif %}
+                                <a href="{{ path('planif.show', {id: planif.id}) }}" class="btn btn-primary">Voir</a>
+                            </div>
+                        </div>
+                    {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row mt-4">
+            <h4 class="mb-2">Les formations déjà effectuées :</h4>
+            {% for planif in planifs|reverse %}
+                    {% set date_debut = 'non définie' %}
+                    {% set date_filtre = 'non définie' %}
+                    {% if planif.dates.count > 0 %}
+                        {% set date_debut = planif.dates.first.dateJour ~ '-' ~ planif.dates.first.dateMois ~ '-' ~ planif.dates.first.dateAnnee %}
+                        {% set date_filtre = planif.dates.first.dateAnnee ~ '-' ~ planif.dates.first.dateMois ~ '-' ~ planif.dates.first.dateJour %}
+                    {% endif %}
+                    {% if date_filtre < 'now'|date('Y-m-d') %}
+
+                        {% set heures_planif = 0 %}
+                        {% for date in planif.dates %}
+                            {% set minutes_matin = 0 %}
+                            {% set heures_matin = 0 %}
+                            {% set minutes_matin = (date.heureFinMatin - date.heureDebutMatin)*60 %}
+                            {% set heures_matin = (minutes_matin + date.minuteFinMatin - date.minuteDebutMatin)/60 %}
+                            {% set minutes_am = 0 %}
+                            {% set heures_am = 0 %}
+                            {% set minutes_am = (date.heureFinAm - date.heureDebutAm)*60 %}
+                            {% set heures_am = (minutes_am + date.minuteFinAm - date.minuteDebutAm)/60 %}
+                            {% set heures_date = 0 %}
+                            {% set heures_date = heures_matin + heures_am %}
+                            {% set heures_planif = heures_planif + heures_date %}<br>
+                        {% endfor %}
+
+                        {% set total_heures = 0 %}
+                        {% for module in planif.programme.moduleFormations %}
+                            {% set total_heures = total_heures + module.nombreHeure %}
+                        {% endfor %}
+
+                        <div class="col-md-4 card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title mb-2">{{ planif.programme.nomFormation }}</h5>
+                                <hr>
+                                <h6 class="card-subtitle mb-2 text-muted">Client : {{ planif.client.nomSociete }}</h6>
+                                {% if heures_planif != total_heures %}
+                                    <p class="alert alert-danger mt-2" role="alert">Attention !  - Vérifiez vos dates</p>
+                                {% endif %}
+                                <p>Date de la formation : {{ date_debut }}</p>
+                                <a href="{{ path('planif.show', {id: planif.id}) }}" class="btn btn-primary">Voir</a>
+                            </div>
+                        </div>
+                    {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <a href="{{ path('admin.planifs.index') }}" class="btn btn-primary">Gérer mes Planifications</a>
+            </div>
+            <div class="col-md-3">
+                <a href="{{ path('admin.planif.new') }}" class="btn btn-primary">+ Planifier une formation</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

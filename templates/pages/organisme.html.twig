@@ -1,0 +1,83 @@
+{%  extends 'base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Organsime {{ organisme.nomOf }}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Nom de l'organisme de formation : <span>{{ organisme.nomOf }}</span></h1>
+        </div>
+        {% if organisme.livretFilename %}
+            <a href="{{ vich_uploader_asset(organisme, 'livretFile') }}" class="btn btn-primary" target="_blank">Télécharger le Livret d'accueil</a>
+        {% endif %}
+        <div class="organisme">
+            <div class="row col-md-6 mt-4">
+                <p>
+                    Représentant Légal :<br>
+                    {% for representant in organisme.representant %}
+                        <span style="text-transform: uppercase;">{{ representant.nom }}</span> <span>{{ representant.prenom }}</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="row col-md-6 mt-2">
+                <p>
+                    Chargé(e) de formations : <span>{{ organisme.cfNom }} {{ organisme.cfPrenom }}</span><br>
+                    e-Mail : <span>{{ organisme.cfMail }}</span><br>
+                    téléphone : <span>{{ organisme.cfPhone }}</span>
+                </p>
+            </div>
+            <div class="row col-md-6 mt-2">
+                <p>Numéro de téléphone : <span>{{ organisme.telephoneFormated }}</span></p>
+                <p>Adresse e-Mail : <span>{{ organisme.mail }}</span></p>
+            </div>
+            <div class="row col-md-6 mt-2">
+                <p>Acces aux formation pour les personnes en situation de handicap ?</p>
+                {% if organisme.accesHandicape == true %}
+                    <p>OUI</p>
+                {% else %}
+                    <p>NON</p>
+                {% endif %}
+            </div>
+            <div class="row col-md-6">
+                <p>Adresse :<br>
+                    <br>
+                    Rue : <span>{{ organisme.adresseVoie }}</span><br>
+                    Ville : <span>{{ organisme.adresseVille }}</span><br>
+                    Code Postal : <span>{{ organisme.adresseCP }}</span></p>
+            </div>
+            <div class="row col-md-6">
+                <p>Numéro de déclaration d'activité : <span>{{ organisme.declarationActivite }}</span></p>
+            </div>
+            <div class="row col-md-6">
+                <p>Forme juridique : <span>{{ organisme.formeJuridique }}</span></p>
+            </div>
+            <div class="row col-md-6">
+                <p>Numéro de SIRET : <span>{{ organisme.siretFormated }}</span></p>
+            </div>
+            <div class="row col-md-6">
+                <p>Numéro de TVA FR : <span>{{ organisme.tvaFr }}</span></p>
+            </div>
+            <div class="row col-md-6">
+                <p>RCS : <span>{{ organisme.rCS }}</span></p>
+            </div>
+            <div class="row col-md-6">
+                <p>Code APE : <span>{{ organisme.codeApe }}</span></p>
+            </div>
+            <div class="row col-md-6">
+                <p>Capital : <span>{{ organisme.capital }} €</span></p>
+            </div>
+        </div>
+        <a href="{{ path('admin.organisme.edit', {id: organisme.id}) }}" class="btn btn-primary">Modifier l'organisme</a>
+    </div>
+
+{% endblock %}

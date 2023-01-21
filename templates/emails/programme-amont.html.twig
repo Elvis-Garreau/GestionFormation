@@ -1,0 +1,29 @@
+<div style="background-color: rgba(255, 255, 255, 1); border: 3px solid #EE2E70; max-width: 750px; margin-right: auto; margin-left: auto; padding: 20px 30px; color: #080F35">
+    <img src="cid:logo" alt="logo" style="width: auto; height: 65px; padding-left: 35px">
+    <h1 style="font-size: 20px">Bonjour {{ contact.prenom }},</h1>
+    <p>
+        Vous avez choisi de suivre la formation <span style="font-style: italic; font-weight: bold; color: #EE2E70">{{ contact.programme.nomFormation }}</span>.
+    </p>
+    <p>
+        Veuillez trouver ci dessous les documents relatifs à cette formation :
+    </p>
+
+    <ul>
+        <li><a href="{{ url('show.file.programme', {id: contact.programme.id, filename: filenameProgramme}) }}" style="color: #EE2E70">Le programme</a></li>
+        {% if contact.nouveauClient == true %}
+            <li><a href="{{ url('show.file.programme', {id: contact.programme.id, filename: filenameInscrClient}) }}" style="color: #EE2E70">Bulletin d'inscription</a></li>
+        {% endif %}
+        <li><a href="{{ url('show.file.programme', {id: contact.programme.id, filename: filenameInscrStagiaire}) }}" style="color: #EE2E70">Fiche de renseignement participants</a></li>
+    </ul>
+    <p>
+        Ces documents sont à compléter et à nous retourner par mail.
+    </p>
+    <p>
+        Pensez à mettre à disposition du/des stagiaire(s) le programme afin qu'il(s) puiss(ent) en prendre connaissance avant de remplir le questionnaire de pré requis.
+    </p>
+    <p>
+        Je vous remercie par avance de l'intérêt que vous portez à notre formation. <br>
+        Salutations distinguées., <br>
+        Le service formation {{ organisme }}.
+    </p>
+</div>

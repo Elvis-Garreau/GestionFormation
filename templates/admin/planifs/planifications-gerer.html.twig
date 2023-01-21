@@ -1,0 +1,93 @@
+{%  extends 'base.html.twig' %}
+
+{% block title 'FORM\'Abil - Gestion Formations' %}
+
+{% block body %}
+    <div class="right-side">
+
+        {% if app.user and app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+
+        <div class="row mt-4">
+            <h1>Gérer mes planifications de formations</h1>
+        </div>
+
+        {% for message in app.flashes('succes') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="row">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-3">
+                    {{ form_row(form.mot) }}
+                </div>
+                <div class="col-md-4" style="position: relative; top: -5px;">
+                    {{ form_label(form.periode) }}
+                    {{ form_widget(form.periode) }}
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary" style="position: relative; top: 24px;">Rechercher</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <hr>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Intitulé de la formation</th>
+                <th>Dates</th>
+                <th>Client</th>
+                <th style="text-align: center">Nbr Stagiaires</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for planif in planifs%}
+                    <tr>
+                        <td style="max-width: 500px; vertical-align: middle">{{ planif.programme.nomFormation }}</td>
+                        <td style="width: 130px; vertical-align: middle">
+                            {% if planif.dates.count > 0 %}
+                                du {{ planif.dates.first.dateJour }}-{{ planif.dates.first.dateMois }}-{{ planif.dates.first.dateAnnee }} au {{ planif.dates.last.dateJour }}-{{ planif.dates.last.dateMois }}-{{ planif.dates.last.dateAnnee }}
+                            {% else %}
+                                <p style="color: red; font-weight: bold">/</p>
+                            {% endif %}
+                        </td>
+                        <td style="vertical-align: middle">{{ planif.client.nomSociete }}</td>
+                        <td style="text-align: center; vertical-align: middle">
+                            {% if planif.stagiaires.count > 0 %}
+                                {{ planif.stagiaires.count }}
+                            {% else %}
+                                <p style="color: red; font-weight: bold">0</p>
+                            {% endif %}
+                        </td>
+                        <td style="width: 460px; vertical-align: middle">
+                            <a href="{{ path('admin.planif.edit', {id: planif.id}) }}" class="btn btn-secondary">Éditer</a>
+                            <a href="{{ path('admin.dates.index', {id: planif.id}) }}" class="btn btn-secondary" style="display: inline-block">Éditer dates</a>
+                            <a href="{{ path('admin.stagiaires.index', {id: planif.id}) }}" class="btn btn-secondary" style="display: inline-block">Éditer stagiaires</a>
+                            <form method="post" action="{{ path('admin.planif.delete', {id: planif.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment Supprimer cette Formation ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ planif.id) }}">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            {{ knp_pagination_render(planifs) }}
+        </div>
+        <div class="text-end">
+            <a href="{{ path('admin.planif.new') }}" class="btn btn-primary">+ Ajouter une planification</a>
+        </div>
+    </div>
+
+{% endblock %}

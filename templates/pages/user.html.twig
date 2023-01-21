@@ -1,0 +1,37 @@
+{%  extends 'base.html.twig' %}
+
+{% block title %}
+
+    FORM'Abil - Utilisateur {{ user.nom }} {{ user.prenom }}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        {% if app.user.organisme.filename %}
+            <div class="row mt-4 ofLogo">
+                <img src="{{ vich_uploader_asset(app.user.organisme, 'imageFile') }}" alt="logo de l'organisme">
+            </div>
+        {% endif %}
+        <div class="row mt-4">
+            <h1>Compte Utilisateur</h1>
+        </div>
+        <div class="user mb-4">
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <p>Nom de l'utilisateur : <span>{{ user.nom }}</span></p>
+                    <p>Prénom de l'utilisateur : <span>{{ user.prenom }}</span></p>
+                    <p>Adresse e-Mail : <span>{{ user.email }}</span></p>
+                </div>
+            </div>
+        </div>
+        {% if app.user.roleAdmin %}
+            <a href="{{ path('admin.user.edit', {id: user.id}) }}" class="btn btn-primary">Modifier mon compte</a>
+        {% else %}
+            <a href="{{ path('utilisateur.user.edit', {id: user.id}) }}" class="btn btn-primary">Modifier mon compte</a>
+        {% endif %}
+        <a href="{{ path('admin.user.change.password', {id: user.id}) }}" class="btn btn-primary">Changer le mot de passe</a>
+    </div>
+
+{% endblock %}

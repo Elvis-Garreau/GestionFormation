@@ -1,0 +1,12 @@
+<div style="background-color: rgba(255, 255, 255, 1); border: 3px solid #EE2E70; max-width: 750px; margin-right: auto; margin-left: auto; padding: 20px 30px; color: #080F35">
+    <h1 style="font-size: 20px">Bonjour,</h1>
+    <p>
+        {{ user }} de l'organisme {{ organisme }} vous a envoyé le message suivant depuis l'outil FORM'Abil :
+    </p>
+    <p>
+        Objet : {{ contact.objet }}
+    </p>
+    {% autoescape false %}
+        <p>{{ contact.message|replace({'\r\n': '<br>'}) }}</p>
+    {% endautoescape %}
+</div>

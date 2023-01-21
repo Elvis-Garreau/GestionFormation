@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title  %}
+
+    FORM'Abil - Édition de  {{ organisme.nomOf }}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="right-side">
+        <h1>Mettre à jour l'organisme {{ organisme.nomOf }}</h1>
+        {{ form_start(form) }}
+        <div class="row mt-4">
+            <div class="col-md-6">{{ form_row(form.nom_of) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-3">{{ form_row(form.imageFile) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">{{ form_row(form.adresse_voie) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-3">{{ form_row(form.adresse_CP) }}</div>
+            <div class="col-md-3">{{ form_row(form.adresse_ville) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-3">{{ form_row(form.telephone) }}</div>
+            <div class="col-md-3">{{ form_row(form.mail) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <p>{{ form_label(form.accesHandicape) }}</p>
+                <p style="font-style: italic; font-size: 14px;">En cochant "Oui" vous vous engagez à pouvoir accueillir des personnes en situations de handicap soit dans vos locaux si ceux-ci le permettent, soit en trouvant une solution pour les accueillir (locations de salles ou autre).</p>
+                {{ form_widget(form.accesHandicape) }}
+            </div>
+        </div>
+        <hr class="col-md-6">
+        <div class="row">
+            <h5>Chargé(e) de formation :</h5>
+            <div class="row mt-2">
+                <div class="col-md-3">{{ form_row(form.cfNom) }}</div>
+                <div class="col-md-3">{{ form_row(form.cfPrenom) }}</div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-3">{{ form_row(form.cfMail) }}</div>
+                <div class="col-md-3">{{ form_row(form.cfPhone) }}</div>
+            </div>
+        </div>
+        <hr class="col-md-6">
+        <div class="row">
+            <h5>Livret d'accueil :</h5>
+            <div class="col-md-6">
+                <p style="font-style: italic; font-size: 14px;">
+                    Si votre organisme dispose d'un livret d'accueil à transmettre aux stagiaires vous pouvez le rajouter grace au lien ci-dessous.<br>
+                    Ce livret d'accueil sera donc envoyé aux stagiaires avec la convocation et le programme une semaine avant le premier jour de la formation.
+                </p>
+                <div class="col-md-6">{{ form_widget(form.livretFile) }}</div>
+            </div>
+        </div>
+        <hr class="col-md-6">
+        <div class="row mt-2">
+            <div class="col-md-3">{{ form_row(form.formeJuridique) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">{{ form_row(form.declaration_activite) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">{{ form_row(form.siret) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">{{ form_row(form.tvaFr) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">{{ form_row(form.RCS) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">{{ form_row(form.capital) }}</div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">{{ form_row(form.codeApe) }}</div>
+        </div>
+        <button class="btn btn-primary mt-4">{{ button | default('Appliquer') }}</button>
+        {{ form_end(form) }}
+        <a href="{{ path('admin.representants.index', {id: organisme.id}) }}" class="btn btn-primary">Modifier le(s) représentant(s)(es)</a>
+    </div>
+
+{% endblock %}
+
+
